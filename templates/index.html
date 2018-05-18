@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+Stuy n' Buy
+{% endblock %}
+
+{% block content %}
+
+<div class="hero-section">
+  <div class="layer">
+    <div class="hero-section-text">
+      <h1>Stuy n' Buy</h1>
+      <h5>The place to get all your Stuy needs!</h5>
+      <a href="{{ url_for('create') }}" class="button">Get Started</a>
+      <a href="#about" class="button">Learn More</a>
+    </div>
+  </div>
+</div>
+<br>
+<div class="grid-container" id="about">
+  <div class="grid-x grid-padding-x">
+    <div class="large-12 cell">
+      <h2>About Us</h2>
+    </div>
+    <div class="large-12 column">
+      <div class="callout">
+        <p>Stuy n’ Buy is a website for members of the Stuyvesant community to buy and sell items they no longer need. Members will prove their identity through the Gmail API, and must use their stuy.edu emails for registration. Users can list items for sale, accompanied by a picture, description, and price. They can also search for items with filters and see if relevant items are being sold, and if not, indicate items they are "looking for." A buyer and seller may contact each other to agree on a price and place to make the exchange.</p>
+        <small>
+	  <p>DISCLAIMER: Stuy N’ Large is not responsible for any transactions that may or may not occur between a buyer and seller. We are also not responsible for emotional or physical damages incurred by meeting with super seniors or having a teacher spot you juuling.</p>
+	  <p>Stuy n' Buy is designed and coded by Max Korsun, Edward Luo, Ryan Siu, and Andrew Wong as their Software Development class final project at Stuyvesant Highschool.</p>
+	</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
