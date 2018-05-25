@@ -77,3 +77,14 @@ button.addEventListener("click", clear);
 
 drawLens( 10 );
 drawLens( -10 );
+
+var convex = function(){
+    drawLens( 10 );
+};
+
+var concave = function(){
+    drawLens( -10 );
+};
+
+document.getElementById("convex").addEventListener("click", convex);
+document.getElementById("concave").addEventListener("click", concave);
