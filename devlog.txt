@@ -1,0 +1,9 @@
+korsunM -- 2018-05-24 02:25:28
+reorganized repo and made it display properly
+
+JamesS -- 2018-05-28 18:22:25
+organized repo, wrote webpages, styled website, set up logging in, home page, drawing page, and wrote db functions
+
+JamesS -- 2018-05-28 19:15:57
+Fixed database and set up new functions
+
