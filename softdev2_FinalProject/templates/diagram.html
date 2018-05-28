@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Diagram Creation{% endblock %}
+{% block content %}
+    <svg xmlns="http://www.w3.org/2000/svg" id="svg_id"></svg>
+
+    <button id="clear">Clear</button>
+    <button id="convex">Convex</button>
+    <button id="concave">Concave</button>
+    <script src ="{{ url_for('static', filename='js/diagram.js') }}"></script>
+{% endblock %}
