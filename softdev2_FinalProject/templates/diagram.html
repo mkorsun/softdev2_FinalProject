@@ -1,21 +1,40 @@
 {% extends "base.html" %}
 {% block title %}Diagram Creation{% endblock %}
 {% block content %}
-    <svg xmlns="http://www.w3.org/2000/svg" id="svg_id"></svg>
+    <center><svg xmlns="http://www.w3.org/2000/svg" id="svg_id"></svg></center>
     <br>
     <div class="sidenav">
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary active">
-              <input type="radio" name="type" id="concave" autocomplete="off"> Concave
-            </label>
-            <label class="btn btn-secondary">
-              <input type="radio" name="type" id="convex" autocomplete="off"> Convex
-            </label>
-          </div>
+        <center>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                <input type="radio" name="type" id="concave" autocomplete="off"> Concave
+                </label>
+                <label class="btn btn-secondary">
+                <input type="radio" name="type" id="convex" autocomplete="off"> Convex
+                </label>
+        </div>
     <br>
+    <br>
+    <div class="form-group" style="color:white;">
+            <label for="focus">Focal Length</label>
+            <input name="focus" type="text" class="form-control" id="focus" placeholder="Enter a focal length">
+      </div>
+    <br>
+    <div class="form-group" style="color:white;">
+            <label for="oHeight">Object Height</label>
+            <input name="oHeight" type="text" class="form-control" id="oHeight" placeholder="Enter an object height">
+      </div>
+    <br>
+    <div class="form-group" style="color:white;">
+            <label for="oDist">Object Distance</label>
+            <input name="oDist" type="text" class="form-control" id="oDist" placeholder="Enter an object distance">
+      </div>
+      <br>
     <button class="btn" id="clear">Clear</button>
     <br>
+    <br>
     <button class="btn" id="save">Save Diagram</button>
+</center>
 </div>
     <script src ="{{ url_for('static', filename='js/diagram.js') }}"></script>
 {% endblock %}
