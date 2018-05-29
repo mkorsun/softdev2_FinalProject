@@ -1,13 +1,28 @@
+var ns = "http://www.w3.org/2000/svg";
+
+//DOM ELEMENTS
 var svg = document.getElementById("svg_id");
+var clear = document.getElementById("clear");
+var save = document.getElementById("save");
+var concave = document.getElementById("concave");
+var convex = document.getElementById("convex");
 
-var width = 500;
-var height = 200;
+//SVG DIMENSIONS
+var width = 1280;
+var height = 720;
 
-svg.setAttribute("width", width);
-svg.setAttribute("height", height);
+//EVENT LISTENERS
+clear.addEventListener("click", clear);
+save.addEventListener("click", save);
+concave.addEventListener("click", concave);
+convex.addEventListener("click", convex);
 
+var drawEnvironment = function(){
+    drawRect();
+    drawLens(getFocus());//OAIHWDOABFOIUABEFIBEFOABDFKJBAEFBAEKBJ NOT WRITTEN
+}
 var drawRect = function(){
-    var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    var rect = document.createElementNS(ns, "rect");
     rect.setAttribute("x", 0);
     rect.setAttribute("y", 0);
     rect.setAttribute("width", width);
@@ -17,11 +32,9 @@ var drawRect = function(){
     return rect;
 };
 
-var border = drawRect();
-
 var drawLen = function(x0, y0, x1, y1, xm, ym){
     //postive = convex, negative = concave                                      
-    var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    var path = document.createElementNS(ns, "path");
     path.setAttribute("d", `M${x0} ${y0} Q ${x1} ${y1} ${xm} ${ym}`);
     path.setAttribute("stroke", "black");
     path.setAttribute("fill", "transparent");
@@ -30,13 +43,13 @@ var drawLen = function(x0, y0, x1, y1, xm, ym){
 };
 
 var connect = function( x0, x1, y0, y1 ){
-    var top = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    var top = document.createElementNS(ns, "line");
     top.setAttribute("x1", x0);
     top.setAttribute("x2", x1);
     top.setAttribute("stroke", "black");
     top.setAttribute("y1", y0);
     top.setAttribute("y2", y0);
-    var bot = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    var bot = document.createElementNS(ns, "line");
     bot.setAttribute("x1", x0);
     bot.setAttribute("x2", x1);
     bot.setAttribute("stroke", "black");
@@ -86,5 +99,9 @@ var concave = function(){
     drawLens( 10 );
 };
 
-document.getElementById("convex").addEventListener("click", convex);
-document.getElementById("concave").addEventListener("click", concave);
+//set width and height of svg
+svg.setAttribute("width", width);
+svg.setAttribute("height", height);
+
+//draw border
+drawRect();
