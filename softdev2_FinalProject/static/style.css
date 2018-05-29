@@ -93,8 +93,8 @@ li {
 
 .sidenav {
   top: 100%;
-  transform: translateY(20%);
-  height: 55%; /* Full-height: remove this if you want "auto" height */
+  transform: translateY(10%);
+  height: 80%; /* Full-height: remove this if you want "auto" height */
   width: 200px; /* Set the width of the sidebar */
   position: fixed;
   z-index: 1; /* Stay on top */

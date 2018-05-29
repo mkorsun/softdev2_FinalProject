@@ -5,12 +5,12 @@
     <br>
     <div class="sidenav">
         <center>
-        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons" id = "radioDiv">
                 <label class="btn btn-secondary active">
-                <input type="radio" name="type" id="concave" autocomplete="off"> Concave
+                <input type="radio" name="type" id="concave">Concave
                 </label>
                 <label class="btn btn-secondary">
-                <input type="radio" name="type" id="convex" autocomplete="off"> Convex
+                <input type="radio" name="type" id="convex">Convex
                 </label>
         </div>
     <br>
@@ -30,11 +30,22 @@
             <input name="oDist" type="text" class="form-control" id="oDist" placeholder="Enter an object distance">
       </div>
       <br>
-    <button class="btn" id="clear">Clear</button>
-    <br>
-    <br>
+      <div class="form-group" style="color:white;">
+            <label for="iDist">Image Distance</label>
+            <input name="iDist" type="text" class="form-control" id="iDist" readonly="readonly" placeholder="null">
+      </div>
+      <br>
+      <div class="form-group" style="color:white;">
+            <label for="iHeight">Image Height</label>
+            <input name="iHeight" type="text" class="form-control" id="iHeight" readonly="readonly" placeholder="null">
+      </div>
+      <br>
     <button class="btn" id="save">Save Diagram</button>
+    <br>
+    <br>
+    <button class="btn" id="download">Download Diagram</button>
 </center>
 </div>
+<
     <script src ="{{ url_for('static', filename='js/diagram.js') }}"></script>
 {% endblock %}

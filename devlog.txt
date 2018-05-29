@@ -10,3 +10,6 @@ Fixed database and set up new functions
 JamesS -- 2018-05-28 21:21:29
 finished styling and transitions for today
 
+JamesS -- 2018-05-29 02:31:39
+Tons of work on javascript. got MVP Diagram working and base for ray calculations and display
+
