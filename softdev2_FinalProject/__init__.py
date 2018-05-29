@@ -27,6 +27,12 @@ def root():
 def diagram():
     return render_template('diagram.html', logged = is_logged())
 
+@app.route('/profile')
+def profle():
+    if(not is_logged()):
+        return redirect(url_for("login"))
+    return render_template('profile.html', logged = is_logged(), username = session[USER_SESSION])
+
 @app.route('/login', methods = ['POST','GET'])
 def login():
     if is_logged():

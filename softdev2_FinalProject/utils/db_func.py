@@ -13,7 +13,6 @@ def login(username, password):
     c = db.cursor()
     c.execute("SELECT username, password FROM users WHERE username = '%s'" % (username))
     for account in c:
-        print account
         u = account[0]
         p = account[1]
         # Check if usernames and encrypted passwords match

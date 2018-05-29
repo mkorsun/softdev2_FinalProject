@@ -2,8 +2,9 @@ body {
   padding-top: 10px;
   min-height: 75rem;
 }
+
 .login{
-  background-color: #DCEAED;
+  background-color: rgb(255, 255, 255);
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -13,32 +14,29 @@ body {
   padding-right: 50px;
 }
 
-.lyrics.musiclist {
-  padding-left: 80px;
-  padding-right: 80px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  background-color: #DCEAED;
-}
-
 .form-stuff{
-  background-color: #DCEAED;
+  background-color: rgb(255, 255, 255);
   padding-top: 15px;
   padding-bottom: 15px;
   padding-left: 15px;
   padding-right: 15px;
 }
 
+.form-control:hover{
+  border-color: #B82601
+}
+
 .footerhdr{
   font-size: 10px;
+  background-color: #B82601
 }
 
 .footer {
-	background-color: #7aa2b3;
+  background-color: rgb(0, 0, 0) !important;
 }
 
-h1{
-  color: #FF545C;
+h1, h2{
+  color: #B82601;
 } 
 
 .navbar-center {
@@ -47,8 +45,19 @@ h1{
     transform: translatex(-50%);
 }
 
+.btn {
+  background-color: rgb(0, 0, 0);
+  border-color: white;
+  color: white
+}
+
+.btn:hover{
+  background-color: white !important;
+  border-color: black !important;
+  color: black !important
+}
 a{
-  color: #FF545C;
+  color: #B82601;
 }
 
 ul{
@@ -61,17 +70,25 @@ li {
 }
   .dropdown-menu > li > a:hover,
    .dropdown-menu > li > a:focus {
-    color: #325568;
+    color: rgb(0, 0, 0);
    text-decoration: none;
-  background-color: #325568;  /*change color of links in drop down here*/
+  background-color: rgb(255, 255, 255);  /*change color of links in drop down here*/
  	list-style-type: none;
 
    } 
    
    /* navbar */
 .navbar-inverse {
-    background-color: #325568;
-    border-color: #325568;
+    background-color: rgb(0, 0, 0);
+    border-color: rgb(255, 255, 255);
+    color: #ffffff
+}
+
+.nav-item a:hover{
+  -webkit-transition: background .25s, border-radius .25s;
+    background: rgb(255, 255, 255);
+    border-radius: 15px;
+    color: #000000 !important
 }
 
 #right { display:none; } 
@@ -81,11 +98,5 @@ li {
 
 #linkit {
     cursor:pointer;
-	color: blue;
-}
-
-
-
-.nav-item a:hover{
-    background-color: #7aa2b3;
+	color: rgb(0, 0, 255);
 }
