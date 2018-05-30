@@ -13,3 +13,6 @@ finished styling and transitions for today
 JamesS -- 2018-05-29 02:31:39
 Tons of work on javascript. got MVP Diagram working and base for ray calculations and display
 
+JamesS -- 2018-05-30 15:32:01
+made focus notches on diagram and continued work on ray intersection
+

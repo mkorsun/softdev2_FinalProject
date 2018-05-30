@@ -33,10 +33,11 @@ var drawEnvironment = function(){
     if(sign != null){//if lens type is selected
         if(focus != null && focus != 0){//if the focus isnt null or zero, draw the lens and check the object dimensions
             drawLens(focus*sign);
+            drawFocusMarks();
             if(oDist != null && oDist != 0 && oHeight != null && oHeight != 0){ // if the object dimensions arent null or zero, draw the object, the rays, 
                 drawObject();
                 drawImage();
-                //drawRays(); //UNCOMMENT ONCE LOGIC IS SORTED WITH THE FUNCTION
+                drawRays();
             }else{
                 console.log("Object distance or height is null or zero");
             }
@@ -66,7 +67,7 @@ var drawPrincipal = function(){
     line.setAttribute("x2", width);
     line.setAttribute("y2", height/2);
     line.setAttribute("stroke-dasharray", "5, 5");
-    line.setAttribute("style", "stroke:black;strike-wdith:2;");
+    line.setAttribute("style", "stroke:black;stroke-width:2;");
     svg.appendChild(line);
     return line;
 }
@@ -78,7 +79,7 @@ var drawMidLine = function(){
     line.setAttribute("x2", width/2);
     line.setAttribute("y2", height);
     line.setAttribute("stroke-dasharray", "5, 5");
-    line.setAttribute("style", "stroke:black;strike-wdith:2;");
+    line.setAttribute("style", "stroke:black;stroke-width:2;");
     svg.appendChild(line);
     return line;
 }
@@ -90,10 +91,70 @@ var drawObject = function(){
     line.setAttribute("y1", height/2);
     line.setAttribute("x2", width/2-oDist);
     line.setAttribute("y2", height/2 - oHeight);
-    line.setAttribute("style", "stroke:black;strike-wdith:4;");
+    line.setAttribute("style", "stroke:black;stroke-width:4;");
    // line.setAttribute("marker-end", "url(#arrowhead)");
     svg.appendChild(line);
     return line;
+}
+
+var drawFocusMarks = function(){
+    var notchHeight = 5; //height above the principal axis
+    var textOffset = 20;//scale of text below principal axis
+    var notch = document.createElementNS(ns, 'line');
+    var text = document.createElementNS(ns, 'text');
+    text.setAttribute('x', width/2 - focus);
+    text.setAttribute('y', height/2 + textOffset);
+    text.setAttribute('fill', 'black');
+    text.textContent = 'F';
+    notch.setAttribute("x1", width/2-focus);
+    notch.setAttribute("y1", height/2 + notchHeight);
+    notch.setAttribute("x2", width/2-focus);
+    notch.setAttribute("y2", height/2 - notchHeight);
+    notch.setAttribute("style", "stroke:black;stroke-width:2;");
+    svg.appendChild(notch);
+    svg.appendChild(text);
+
+    notch = document.createElementNS(ns, 'line');
+    text = document.createElementNS(ns, 'text');
+    text.setAttribute('x', width/2 + (focus));
+    text.setAttribute('y', height/2 + textOffset);
+    text.setAttribute('fill', 'black');
+    text.textContent = 'F';
+    notch.setAttribute("x1", width/2+focus);
+    notch.setAttribute("y1", height/2 + notchHeight);
+    notch.setAttribute("x2", width/2+focus);
+    notch.setAttribute("y2", height/2 - notchHeight);
+    notch.setAttribute("style", "stroke:black;stroke-width:2;");
+    svg.appendChild(notch);
+    svg.appendChild(text);
+
+    notch = document.createElementNS(ns, 'line');
+    text = document.createElementNS(ns, 'text');
+    text.setAttribute('x', width/2 - (2*focus));
+    text.setAttribute('y', height/2 + textOffset);
+    text.setAttribute('fill', 'black');
+    text.textContent = '2F';
+    notch.setAttribute("x1", width/2-2*focus);
+    notch.setAttribute("y1", height/2 + notchHeight);
+    notch.setAttribute("x2", width/2-2*focus);
+    notch.setAttribute("y2", height/2 - notchHeight);
+    notch.setAttribute("style", "stroke:black;stroke-width:2;");
+    svg.appendChild(notch);
+    svg.appendChild(text);
+
+    notch = document.createElementNS(ns, 'line');
+    text = document.createElementNS(ns, 'text');
+    text.setAttribute('x', width/2 + (2*focus));
+    text.setAttribute('y', height/2 + textOffset);
+    text.setAttribute('fill', 'black');
+    text.textContent = '2F';
+    notch.setAttribute("x1", width/2+2*focus);
+    notch.setAttribute("y1", height/2 + notchHeight);
+    notch.setAttribute("x2", width/2+2*focus);
+    notch.setAttribute("y2", height/2 - notchHeight);
+    notch.setAttribute("style", "stroke:black;stroke-width:2;");
+    svg.appendChild(notch);
+    svg.appendChild(text);
 }
 
 var drawImage = function(){
@@ -103,42 +164,49 @@ var drawImage = function(){
     line.setAttribute("y1", height/2);
     line.setAttribute("x2", width/2+iDist);
     line.setAttribute("y2", height/2 - iHeight);
-    line.setAttribute("style", "stroke:black;strike-wdith:4;");
+    line.setAttribute("style", "stroke:black;stroke-width:4;");
    // line.setAttribute("marker-end", "url(#arrowhead)");
     svg.appendChild(line);
     return line;
 }
 
 var drawRays = function(){
+    var coords;
+    var oX = width/2 - oDist;
+    var oY = height/2 - oHeight;
+    var iX = width/2+iDist;
+    var iY = height/2 - iHeight;
+
     //FIRST PART OF RAY
     var parallelRay = document.createElementNS(ns, "line");
     var centerRay = document.createElementNS(ns, "line");
     var focusRay = document.createElementNS(ns, "line");
     
     //set initial point to the object point
-    parallelRay.setAttribute("x1", width/2-oDist);
-    parallelRay.setAttribute("y1", height/2 - oHeight);
-    centerRay.setAttribute("x1", width/2-oDist);
-    centerRay.setAttribute("y1", height/2 - oHeight);
-    focusRay.setAttribute("x1", width/2-oDist);
-    focusRay.setAttribute("y1", height/2 - oHeight);
+    parallelRay.setAttribute("x1", oX);
+    parallelRay.setAttribute("y1", oY);
+    centerRay.setAttribute("x1", oX);
+    centerRay.setAttribute("y1", oY);
+    focusRay.setAttribute("x1", oX);
+    focusRay.setAttribute("y1", oY);
     
     //For first part of parallel ray, draw horizontally to the center
     parallelRay.setAttribute("x2", width/2);
-    parallelRay.setAttribute("y2", height/2 - oHeight);
+    parallelRay.setAttribute("y2", oY);
 
     //for for first part of center ray, draw the arrow straight to the image
-    centerRay.setAttribute("x2", width/2+iDist);
-    centerRay.setAttribute("y2", height/2 - iHeight);
+    centerRay.setAttribute("x2", iX);
+    centerRay.setAttribute("y2", iY);
 
     //for first part of focus ray, draw to the intersection of ray with center
-    focusRay.setAttribute("x2", );
-    focusRay.setAttribute("y2", );
+    coords = findIntersection(oX, oY, width/2 - (focus*sign), height/2, width/2);
+    focusRay.setAttribute("x2", coords[0]);
+    focusRay.setAttribute("y2", coords[1]);
 
     //set style
-    parallelRay.setAttribute("style", "stroke:black;strike-wdith:2;");
-    centerRay.setAttribute("style", "stroke:black;strike-wdith:2;");
-    focusRay.setAttribute("style", "stroke:black;strike-wdith:2;");
+    parallelRay.setAttribute("style", "stroke:black;stroke-width:2;");
+    centerRay.setAttribute("style", "stroke:black;stroke-width:2;");
+    focusRay.setAttribute("style", "stroke:black;stroke-width:2;");
 
     svg.appendChild(parallelRay);
     svg.appendChild(centerRay);
@@ -158,9 +226,9 @@ var drawRays = function(){
     //for second part of focus ray, continue parallel to intersection point
 
     //set style
-    parallelRay.setAttribute("style", "stroke:black;strike-wdith:2;");
-    centerRay.setAttribute("style", "stroke:black;strike-wdith:2;");
-    focusRay.setAttribute("style", "stroke:black;strike-wdith:2;");
+    parallelRay.setAttribute("style", "stroke:black;stroke-width:2;");
+    centerRay.setAttribute("style", "stroke:black;stroke-width:2;");
+    focusRay.setAttribute("style", "stroke:black;stroke-width:2;");
 
     svg.appendChild(parallelRay);
     svg.appendChild(centerRay);
@@ -301,6 +369,12 @@ var createDefs = function(){
         document.createElementNS(ns, "defs").appendChild(
             document.createElementNS(ns, "marker").setAttribute("id", "arrowhead").setAttribute("markerWidth", "10").setAttribute("markerHeight", "7").setAttribute("refX", "0").setAttribute("refY", "3.5").setAttribute("orient", "auto").appendChild(
                 createElementNS(ns, "polyon").setAttribute("points", "0 0, 10 3.5, 0 7"))));
+}
+
+//returns the (x, y) for the intersection of the vertical line y=x and line that passes through (x1, y1) and (x2, y2)
+var findIntersection = function(x1, y1, x2, y2, x){
+    var slope = (y2-y1)/(x2-x1)
+    return (x, slope*(x-x1)+y1);
 }
 
 //CODE ===============================================================================
