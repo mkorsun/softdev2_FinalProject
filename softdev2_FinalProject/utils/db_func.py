@@ -1,6 +1,6 @@
-import sqlite3, hashlib
+import sqlite3, hashlib, os
 
-f="./data/lens.db"
+f=os.path.abspath(os.path.dirname(__file__)) + "/../data/lens.db"
 
 # Encrypt password - Returns SHA256
 def encrypt_password(password):
