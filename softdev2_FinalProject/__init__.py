@@ -31,7 +31,7 @@ def diagram():
 def profle():
     if(not is_logged()):
         return redirect(url_for("login"))
-    return render_template('profile.html', logged = is_logged(), username = session[USER_SESSION])
+    return render_template('profile.html', logged = is_logged(), username = session[USER_SESSION], sessions = db.get_owned_sessions(session[USER_SESSION]))
 
 @app.route('/login', methods = ['POST','GET'])
 def login():
@@ -60,6 +60,16 @@ def logout():
     if is_logged():
         session.pop(USER_SESSION)
     return redirect(url_for("login"))
+
+@app.route("/changepass", methods = ['POST','GET'])
+def changepass():
+    username = session[USER_SESSION]
+    old_pass = request.form["oldpass"]
+    new_pass = request.form["newpass"]
+    db.change_password(username, old_pass, new_pass)
+    flash("Password change successful")
+    return redirect(url_for("profile"))
+    
 
 if __name__ == '__main__':
     app.debug = DEBUG

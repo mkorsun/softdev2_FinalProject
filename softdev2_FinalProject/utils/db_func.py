@@ -103,7 +103,7 @@ def get_session(hashcode):
 def get_owned_sessions(username):
     db = sqlite3.connect(f)
     c = db.cursor()
-    info = [hash_id[0] for hash_id in c.execute("SELECT hash_id FROM sessions WHERE id = (SELECT user_id FROM users WHERE username = '%s')" % (username)).fetchall()]
+    info = [hash_id[0] for hash_id in c.execute("SELECT hash_id FROM sessions WHERE id = (SELECT id FROM users WHERE username = '%s')" % (username)).fetchall()]
     db.commit()
     db.close()
     return info
