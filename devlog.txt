@@ -16,3 +16,5 @@ Tons of work on javascript. got MVP Diagram working and base for ray calculation
 JamesS -- 2018-05-30 15:32:01
 made focus notches on diagram and continued work on ray intersection
 
+ConnieL -- 2018-05-31 10:11
+finished necessary database functions for user sessions
