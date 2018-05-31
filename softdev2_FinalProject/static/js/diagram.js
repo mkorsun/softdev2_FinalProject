@@ -35,6 +35,7 @@ var drawEnvironment = function(){
             drawLens(focus*sign);
             drawFocusMarks();
             if(oDist != null && oDist != 0 && oHeight != null && oHeight != 0){ // if the object dimensions arent null or zero, draw the object, the rays, 
+                createDefs();
                 drawObject();
                 drawImage();
                 drawRays();
@@ -85,14 +86,13 @@ var drawMidLine = function(){
 }
 
 var drawObject = function(){
-    //createDefs();
     var line = document.createElementNS(ns, "line");
     line.setAttribute("x1", width/2-oDist);
     line.setAttribute("y1", height/2);
     line.setAttribute("x2", width/2-oDist);
     line.setAttribute("y2", height/2 - oHeight);
     line.setAttribute("style", "stroke:black;stroke-width:4;");
-   // line.setAttribute("marker-end", "url(#arrowhead)");
+    line.setAttribute("marker-end", "url(#arrowhead)");
     svg.appendChild(line);
     return line;
 }
@@ -165,7 +165,7 @@ var drawImage = function(){
     line.setAttribute("x2", width/2+iDist);
     line.setAttribute("y2", height/2 - iHeight);
     line.setAttribute("style", "stroke:black;stroke-width:4;");
-   // line.setAttribute("marker-end", "url(#arrowhead)");
+    line.setAttribute("marker-end", "url(#arrowhead)");
     svg.appendChild(line);
     return line;
 }
@@ -328,7 +328,7 @@ var updateOHeight = function(e){
 //deletes everything on the screen
 var clear = function(){
     while(svg.firstChild){
-	svg.removeChild(svg.firstChild);
+	    svg.removeChild(svg.firstChild);
     }
 }
 
@@ -365,10 +365,20 @@ var calculateImageValues = function(){
 }
 
 var createDefs = function(){
-    svg.appendChild(
-        document.createElementNS(ns, "defs").appendChild(
-            document.createElementNS(ns, "marker").setAttribute("id", "arrowhead").setAttribute("markerWidth", "10").setAttribute("markerHeight", "7").setAttribute("refX", "0").setAttribute("refY", "3.5").setAttribute("orient", "auto").appendChild(
-                createElementNS(ns, "polyon").setAttribute("points", "0 0, 10 3.5, 0 7"))));
+    var defs = document.createElementNS(ns, "defs");
+    var marker = document.createElementNS(ns, "marker");
+    marker.setAttribute("viewBox", "-6 -6 12 12");
+    marker.setAttribute("id", "arrowhead");
+    marker.setAttribute("markerWidth", "5");
+    marker.setAttribute("markerHeight", "5");
+    marker.setAttribute("refX", "-2");
+    marker.setAttribute("refY", "0");
+    marker.setAttribute("orient", "auto");
+    var polygon = document.createElementNS(ns, "polygon");
+    polygon.setAttribute("points", "-2,0 -5,5 5,0 -5,-5");//"0 0, 10 3.5, 0 7"
+    marker.appendChild(polygon);
+    defs.appendChild(marker);
+    svg.appendChild(defs);
 }
 
 //returns the (x, y) for the intersection of the vertical line y=x and line that passes through (x1, y1) and (x2, y2)
