@@ -21,3 +21,6 @@ finished necessary database functions for user sessions
 JamesS -- 2018-05-31 14:58:00
 got arrow pointers working
 
+JamesS -- 2018-06-01 15:14:42
+got the svg to actively resize for the most part. ran into a lot of bugs. will take take of them later
+

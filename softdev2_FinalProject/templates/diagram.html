@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block title %}Diagram Creation{% endblock %}
 {% block content %}
-    <center><svg xmlns="http://www.w3.org/2000/svg" id="svg_id"></svg></center>
+      <div class="svg_container">
+    <center><svg xmlns="http://www.w3.org/2000/svg" id="svg_id" viewBox="0 0 1280 720" height="100%" width="100%"></svg></center>
+      </div>
     <br>
     <div class="sidenav">
         <center>
@@ -46,6 +48,5 @@
     <button class="btn" id="download">Download Diagram</button>
 </center>
 </div>
-<
     <script src ="{{ url_for('static', filename='js/diagram.js') }}"></script>
 {% endblock %}

@@ -20,8 +20,10 @@ var iDistBox = document.getElementById("iDist");
 var iHeightBox = document.getElementById("iHeight");
 
 //SVG DIMENSIONS ===============================================================================
-var width = 1280;
-var height = 720;
+// var width = 1280;
+// var height = 720;
+var width = svg.width.baseVal.value;
+var height = svg.height.baseVal.value;
 
 //DRAWING FUNCTIONS ===============================================================================
 
@@ -56,7 +58,7 @@ var drawRect = function(){
     rect.setAttribute("y", 0);
     rect.setAttribute("width", width);
     rect.setAttribute("height", height);
-    rect.setAttribute("style","fill:white;stroke:black;stroke-width:2;fill-opacity:0.1;stroke-opacity:0.5");
+    rect.setAttribute("style","fill:white;stroke:black;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.5");
     svg.appendChild(rect);
     return rect;
 };
@@ -371,7 +373,7 @@ var createDefs = function(){
     marker.setAttribute("id", "arrowhead");
     marker.setAttribute("markerWidth", "5");
     marker.setAttribute("markerHeight", "5");
-    marker.setAttribute("refX", "-2");
+    marker.setAttribute("refX", "3");
     marker.setAttribute("refY", "0");
     marker.setAttribute("orient", "auto");
     var polygon = document.createElementNS(ns, "polygon");
@@ -390,8 +392,8 @@ var findIntersection = function(x1, y1, x2, y2, x){
 //CODE ===============================================================================
 
 //set width and height of svg
-svg.setAttribute("width", width);
-svg.setAttribute("height", height);
+// svg.setAttribute("width", width);
+// svg.setAttribute("height", height);
 
 setEventListeners();
 drawEnvironment();
