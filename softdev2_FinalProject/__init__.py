@@ -70,6 +70,12 @@ def changepass():
     flash("Password change successful")
     return redirect(url_for("profile"))
     
+@app.route("/save", methods = ['GET'])
+def save():
+    focus = request.form["focus"]
+    oHeight = request.form["oHeight"]
+    oDist = request.form["oDist"]
+    db.create_session(session[USER_SESSION], oDist, oHeight, focus)
 
 if __name__ == '__main__':
     app.debug = DEBUG
