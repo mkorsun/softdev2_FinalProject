@@ -14,6 +14,12 @@ body {
   padding-right: 50px;
 }
 
+.svg_container{
+  left: 0;
+  height: 40%;
+  width: 80%;
+}
+
 .form-stuff{
   background-color: rgb(255, 255, 255);
   padding-top: 15px;
