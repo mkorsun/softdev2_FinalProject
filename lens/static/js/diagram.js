@@ -5,6 +5,8 @@ var oDist = null; //Distance of object from lens
 var oHeight = null; //height of object relative to principal axis
 var iDist = null; //Distance of image from lens
 var iHeight = null; //height of image relative to principal axis
+var height;
+var width;
 
 //DOM ELEMENTS ===============================================================================
 var svg = document.getElementById("svg_id");
@@ -18,12 +20,6 @@ var oDistBox = document.getElementById("oDist");
 var oHeightBox = document.getElementById("oHeight");
 var iDistBox = document.getElementById("iDist");
 var iHeightBox = document.getElementById("iHeight");
-
-//SVG DIMENSIONS ===============================================================================
-// var width = 1280;
-// var height = 720;
-var width = svg.width.baseVal.value;
-var height = svg.height.baseVal.value;
 
 //DRAWING FUNCTIONS ===============================================================================
 
@@ -58,7 +54,7 @@ var drawRect = function(){
     rect.setAttribute("y", 0);
     rect.setAttribute("width", width);
     rect.setAttribute("height", height);
-    rect.setAttribute("style","fill:white;stroke:black;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.5");
+    rect.setAttribute("style","fill:white;stroke:black;stroke-width:4;fill-opacity:0.1;stroke-opacity:0.5");
     svg.appendChild(rect);
     return rect;
 };
@@ -395,5 +391,9 @@ var findIntersection = function(x1, y1, x2, y2, x){
 // svg.setAttribute("width", width);
 // svg.setAttribute("height", height);
 
-setEventListeners();
-drawEnvironment();
+window.onload = function(){
+    setEventListeners();
+    width = svg.width.baseVal.value;
+    height = svg.height.baseVal.value;
+    drawEnvironment();
+}
