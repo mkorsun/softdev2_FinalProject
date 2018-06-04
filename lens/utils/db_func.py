@@ -1,7 +1,9 @@
 import sqlite3, hashlib, os, zlib, json
 
-f = os.path.abspath(os.path.dirname(__file__)) + "/../data/lens.db"
-#f = "../data/lens.db"
+basedir = os.path.abspath(os.path.dirname(__file__))
+global f
+f = basedir+"/../data/lens.db"
+
 
 #alphanumeric = "1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm,./;'[]\`!@#$%^&*()_+-=|}{:?><"
 

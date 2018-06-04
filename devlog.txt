@@ -24,3 +24,6 @@ got arrow pointers working
 JamesS -- 2018-06-01 15:14:42
 got the svg to actively resize for the most part. ran into a lot of bugs. will take take of them later
 
+maxK -- 2018-06-04 18:36:35
+Fixed issue regarding database write access
+

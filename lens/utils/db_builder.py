@@ -1,8 +1,11 @@
-import sqlite3, hashlib   #enable control of an sqlite database
+import sqlite3, hashlib, os   #enable control of an sqlite database
 
-f="../data/lens.db"
-db = sqlite3.connect(f) #open if f exists, otherwise create
-c = db.cursor()  #facilitate db ops
+basedir = os.path.abspath(os.path.dirname(__file__))
+global f
+f=basedir+"/../data/lens.db"
+db=sqlite3.connect(f) #creates db if doesnt exist, and connect
+c=db.cursor() #facilitates b ops
+
 
 #==========================================================
 def db_gen():

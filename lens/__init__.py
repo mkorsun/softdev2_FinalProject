@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import utils.db_func as db
+import utils.db_builder as builder
 
 USER_SESSION = "logged_in"
 DEBUG = True
