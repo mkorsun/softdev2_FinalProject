@@ -33,3 +33,6 @@ got it to actively resize using on load and began looking into sidebars and drag
 JamesS -- 2018-06-06 00:04:47
 added zoom, pan, and download functionality to diagram page. Reworked resizing to work better
 
+ConnieL -- 2018-06-06 14:52:57
+added ajax call for creating/updating sessions
+
