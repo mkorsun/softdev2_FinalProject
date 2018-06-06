@@ -70,12 +70,15 @@ def changepass():
     db.change_password(username, old_pass, new_pass)
     flash("Password change successful")
     return redirect(url_for("profile"))
-    
-@app.route("/save", methods = ['GET'])
+
+#AJAX CALLS
+@app.route("/save", methods = ['POST'])
 def save():
     focus = request.form["focus"]
-    oHeight = request.form["oHeight"]
-    oDist = request.form["oDist"]
+    oHeight = request.form["o_height"]
+    oDist = request.form["o_dist"]
+    hashcode = request.form["hash"]
+    if (hashcode == "")
     db.create_session(session[USER_SESSION], oDist, oHeight, focus)
 
 if __name__ == '__main__':

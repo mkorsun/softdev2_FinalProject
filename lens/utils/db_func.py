@@ -4,9 +4,6 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 global f
 f = basedir+"/../data/lens.db"
 
-
-#alphanumeric = "1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm,./;'[]\`!@#$%^&*()_+-=|}{:?><"
-
 # Encrypt password - Returns SHA256
 def encrypt_password(password):
     encrypted = hashlib.sha256(password).hexdigest()
@@ -117,9 +114,10 @@ def update_session(hashcode, o_dist, o_height, focus):
     db.commit()
     db.close()
 
-'''
-print(get_owned_sessions(0))
-print(get_session("apple"))
-update_session("apple", 10, 14, 14)
-print(get_session("apple"))
-'''
+def check_hash(username, hashcode):
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    st = c.execute("SELECT 1 FROM sessions WHERE id = (SELECT id FROM users WHERE username = '%s') and hash_id = '%s'" % (username, hashcode)).fetchall() != []
+    db.commit()
+    db.close()
+    return st
