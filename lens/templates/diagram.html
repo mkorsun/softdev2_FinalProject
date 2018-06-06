@@ -1,8 +1,12 @@
 {% extends "base.html" %}
+{% block head %}
+<script src="{{ url_for('static', filename='js/svg-pan-zoom.min.js') }}"></script>
+{% endblock %}
+
 {% block title %}Diagram Creation{% endblock %}
 {% block content %}
       <div class="svg_container" id="container">
-    <center><svg xmlns="http://www.w3.org/2000/svg" id="svg_id" viewBox="0 0 1280 720" height="100%" width="100%"></svg></center>
+    <center><svg xmlns="http://www.w3.org/2000/svg" id="svg_id" viewBox="0 0 1280 720" height=720 width=1280></svg></center>
       </div>
     <br>
     <div class="sidenav">
@@ -48,5 +52,6 @@
     <button class="btn" id="download">Download Diagram</button>
 </center>
 </div>
-    <script src ="{{ url_for('static', filename='js/diagram.js') }}"></script>
+<canvas id="canvas" hidden></canvas>
+<script src="{{ url_for('static', filename='js/diagram.js') }}"></script>
 {% endblock %}

@@ -20,12 +20,13 @@ var oDistBox = document.getElementById("oDist");
 var oHeightBox = document.getElementById("oHeight");
 var iDistBox = document.getElementById("iDist");
 var iHeightBox = document.getElementById("iHeight");
+var viewport; //transformation window
+var canvas = document.querySelector('canvas'); //used for downloading
 
 //DRAWING FUNCTIONS ===============================================================================
 
 var drawEnvironment = function(){
     clear(); //clear screen for drawing
-    drawRect();//draw outline of svg
     drawPrincipal();
     drawMidLine();
     if(sign != null){//if lens type is selected
@@ -33,7 +34,6 @@ var drawEnvironment = function(){
             drawLens(focus*sign);
             drawFocusMarks();
             if(oDist != null && oDist != 0 && oHeight != null && oHeight != 0){ // if the object dimensions arent null or zero, draw the object, the rays, 
-                createDefs();
                 drawObject();
                 drawImage();
                 drawRays();
@@ -48,17 +48,6 @@ var drawEnvironment = function(){
     }
 }
 
-var drawRect = function(){
-    var rect = document.createElementNS(ns, "rect");
-    rect.setAttribute("x", 0);
-    rect.setAttribute("y", 0);
-    rect.setAttribute("width", width);
-    rect.setAttribute("height", height);
-    rect.setAttribute("style","fill:white;stroke:black;stroke-width:4;fill-opacity:0.1;stroke-opacity:0.5");
-    svg.appendChild(rect);
-    return rect;
-};
-
 var drawPrincipal = function(){
     var line = document.createElementNS(ns, "line");
     line.setAttribute("x1", 0);
@@ -67,7 +56,7 @@ var drawPrincipal = function(){
     line.setAttribute("y2", height/2);
     line.setAttribute("stroke-dasharray", "5, 5");
     line.setAttribute("style", "stroke:black;stroke-width:2;");
-    svg.appendChild(line);
+    viewport.appendChild(line);
     return line;
 }
 
@@ -79,7 +68,7 @@ var drawMidLine = function(){
     line.setAttribute("y2", height);
     line.setAttribute("stroke-dasharray", "5, 5");
     line.setAttribute("style", "stroke:black;stroke-width:2;");
-    svg.appendChild(line);
+    viewport.appendChild(line);
     return line;
 }
 
@@ -91,7 +80,7 @@ var drawObject = function(){
     line.setAttribute("y2", height/2 - oHeight);
     line.setAttribute("style", "stroke:black;stroke-width:4;");
     line.setAttribute("marker-end", "url(#arrowhead)");
-    svg.appendChild(line);
+    viewport.appendChild(line);
     return line;
 }
 
@@ -109,8 +98,8 @@ var drawFocusMarks = function(){
     notch.setAttribute("x2", width/2-focus);
     notch.setAttribute("y2", height/2 - notchHeight);
     notch.setAttribute("style", "stroke:black;stroke-width:2;");
-    svg.appendChild(notch);
-    svg.appendChild(text);
+    viewport.appendChild(notch);
+    viewport.appendChild(text);
 
     notch = document.createElementNS(ns, 'line');
     text = document.createElementNS(ns, 'text');
@@ -123,8 +112,8 @@ var drawFocusMarks = function(){
     notch.setAttribute("x2", width/2+focus);
     notch.setAttribute("y2", height/2 - notchHeight);
     notch.setAttribute("style", "stroke:black;stroke-width:2;");
-    svg.appendChild(notch);
-    svg.appendChild(text);
+    viewport.appendChild(notch);
+    viewport.appendChild(text);
 
     notch = document.createElementNS(ns, 'line');
     text = document.createElementNS(ns, 'text');
@@ -137,8 +126,8 @@ var drawFocusMarks = function(){
     notch.setAttribute("x2", width/2-2*focus);
     notch.setAttribute("y2", height/2 - notchHeight);
     notch.setAttribute("style", "stroke:black;stroke-width:2;");
-    svg.appendChild(notch);
-    svg.appendChild(text);
+    viewport.appendChild(notch);
+    viewport.appendChild(text);
 
     notch = document.createElementNS(ns, 'line');
     text = document.createElementNS(ns, 'text');
@@ -151,8 +140,8 @@ var drawFocusMarks = function(){
     notch.setAttribute("x2", width/2+2*focus);
     notch.setAttribute("y2", height/2 - notchHeight);
     notch.setAttribute("style", "stroke:black;stroke-width:2;");
-    svg.appendChild(notch);
-    svg.appendChild(text);
+    viewport.appendChild(notch);
+    viewport.appendChild(text);
 }
 
 var drawImage = function(){
@@ -164,7 +153,7 @@ var drawImage = function(){
     line.setAttribute("y2", height/2 - iHeight);
     line.setAttribute("style", "stroke:black;stroke-width:4;");
     line.setAttribute("marker-end", "url(#arrowhead)");
-    svg.appendChild(line);
+    viewport.appendChild(line);
     return line;
 }
 
@@ -206,9 +195,9 @@ var drawRays = function(){
     centerRay.setAttribute("style", "stroke:black;stroke-width:2;");
     focusRay.setAttribute("style", "stroke:black;stroke-width:2;");
 
-    svg.appendChild(parallelRay);
-    svg.appendChild(centerRay);
-    svg.appendChild(focusRay);
+    viewport.appendChild(parallelRay);
+    viewport.appendChild(centerRay);
+    viewport.appendChild(focusRay);
 
     //SECOND PART OF RAY
     parallelRay = document.createElementNS(ns, "line");
@@ -228,9 +217,9 @@ var drawRays = function(){
     centerRay.setAttribute("style", "stroke:black;stroke-width:2;");
     focusRay.setAttribute("style", "stroke:black;stroke-width:2;");
 
-    svg.appendChild(parallelRay);
-    svg.appendChild(centerRay);
-    svg.appendChild(focusRay);
+    viewport.appendChild(parallelRay);
+    viewport.appendChild(centerRay);
+    viewport.appendChild(focusRay);
 }
 
 var drawLen = function(x0, y0, x1, y1, xm, ym){
@@ -239,7 +228,7 @@ var drawLen = function(x0, y0, x1, y1, xm, ym){
     path.setAttribute("d", `M${x0} ${y0} Q ${x1} ${y1} ${xm} ${ym}`);
     path.setAttribute("stroke", "black");
     path.setAttribute("fill", "transparent");
-    svg.appendChild(path);
+    viewport.appendChild(path);
     return path;     
 };
 
@@ -256,8 +245,8 @@ var connect = function( x0, x1, y0, y1 ){
     bot.setAttribute("stroke", "black");
     bot.setAttribute("y1", y1);
     bot.setAttribute("y2", y1);
-    svg.appendChild(top);
-    svg.appendChild(bot);
+    viewport.appendChild(top);
+    viewport.appendChild(bot);
 };
 
 var drawLens = function(focalLen){
@@ -285,8 +274,31 @@ var save = function(e){
     //code for ajax call sending over diagram data
 }
 
+//converts svg to png and triggers download event
 var download = function(e){
-    //downloads svg
+    var canvas = document.getElementById('canvas');
+    canvas.setAttribute("width", width);
+    canvas.setAttribute("height", height);
+    var ctx = canvas.getContext('2d');
+    var data = (new XMLSerializer()).serializeToString(svg);
+    var DOMURL = window.URL || window.webkitURL || window;
+
+    var img = new Image();
+    var svgBlob = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
+    var url = DOMURL.createObjectURL(svgBlob);
+
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0);
+        DOMURL.revokeObjectURL(url);
+
+        var imgURI = canvas
+            .toDataURL('image/png')
+            .replace('image/png', 'image/octet-stream');
+
+        triggerDownload(imgURI);
+    };
+
+    img.src = url;
 }
 
 var swapSign = function(e){
@@ -325,8 +337,8 @@ var updateOHeight = function(e){
 
 //deletes everything on the screen
 var clear = function(){
-    while(svg.firstChild){
-	    svg.removeChild(svg.firstChild);
+    while(viewport.firstChild){
+	    viewport.removeChild(viewport.firstChild);
     }
 }
 
@@ -385,15 +397,30 @@ var findIntersection = function(x1, y1, x2, y2, x){
     return (x, slope*(x-x1)+y1);
 }
 
+//triggers download event in order to download the svg->png
+var triggerDownload = function(imgURI) {
+    var evt = new MouseEvent('click', {
+      view: window,
+      bubbles: false,
+      cancelable: true
+    });
+  
+    var a = document.createElement('a');
+    a.setAttribute('download', 'diagram.png');
+    a.setAttribute('href', imgURI);
+    a.setAttribute('target', '_blank');
+  
+    a.dispatchEvent(evt);
+}
+
 //CODE ===============================================================================
-
-//set width and height of svg
-// svg.setAttribute("width", width);
-// svg.setAttribute("height", height);
-
-window.onload = function(){
+svg.addEventListener('load', function(){
+    var diagram = svgPanZoom('#svg_id', {zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true, maxZoom: 100, minZoom: -5});
+    window.addEventListener("resize", function(){ diagram.resize(); diagram.fit(); diagram.center();});
+    viewport = document.getElementsByClassName("svg-pan-zoom_viewport")[0];
+    createDefs();
     setEventListeners();
     width = svg.width.baseVal.value;
     height = svg.height.baseVal.value;
     drawEnvironment();
-}
+});

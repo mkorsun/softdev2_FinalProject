@@ -30,3 +30,6 @@ Fixed issue regarding database write access
 JamesS -- 2018-06-04 14:54:28
 got it to actively resize using on load and began looking into sidebars and dragging the object vector using the mouse
 
+JamesS -- 2018-06-06 00:04:47
+added zoom, pan, and download functionality to diagram page. Reworked resizing to work better
+
