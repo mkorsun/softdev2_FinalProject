@@ -74,12 +74,20 @@ def changepass():
 #AJAX CALLS
 @app.route("/save", methods = ['POST'])
 def save():
-    focus = request.form["focus"]
-    oHeight = request.form["o_height"]
-    oDist = request.form["o_dist"]
     hashcode = request.form["hash"]
-    if (hashcode == "")
-    db.create_session(session[USER_SESSION], oDist, oHeight, focus)
+    if (hashcode == ""):
+        focus = request.form["focus"]
+        oHeight = request.form["o_height"]
+        oDist = request.form["o_dist"]
+        db.create_session(session[USER_SESSION], oDist, oHeight, focus)
+        return "Session created"
+    else if( check_hash(session[USER_SESSION], hashcode) ):
+        focus = request.form["focus"]
+        oHeight = request.form["o_height"]
+        oDist = request.form["o_dist"]
+        db.update_session(hashcode, oDist, oHeight, focus)
+        return "Session updated"
+    return "Something broke"
 
 if __name__ == '__main__':
     app.debug = DEBUG
