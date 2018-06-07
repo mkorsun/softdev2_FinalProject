@@ -39,3 +39,6 @@ added ajax call for creating/updating sessions
 JamesS -- 2018-06-06 14:56:32
 continued to battle with resizing because it is failing now
 
+maxK -- 2018-06-07 17:07:58
+Fixed __init__.py so that the site can run
+
