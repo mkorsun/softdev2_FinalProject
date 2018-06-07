@@ -7,6 +7,7 @@ var iDist = null; //Distance of image from lens
 var iHeight = null; //height of image relative to principal axis
 var height;
 var width;
+var extension = 10000;
 
 //DOM ELEMENTS ===============================================================================
 var svg = document.getElementById("svg_id");
@@ -50,39 +51,15 @@ var drawEnvironment = function () {
 }
 
 var drawPrincipal = function () {
-    var line = document.createElementNS(ns, "line");
-    line.setAttribute("x1", 0);
-    line.setAttribute("y1", height / 2);
-    line.setAttribute("x2", width);
-    line.setAttribute("y2", height / 2);
-    line.setAttribute("stroke-dasharray", "5, 5");
-    line.setAttribute("style", "stroke:black;stroke-width:2;");
-    viewport.appendChild(line);
-    return line;
+    addLine(-1*extension, height/2, extension, height/2, true, false);
 }
 
 var drawMidLine = function () {
-    var line = document.createElementNS(ns, "line");
-    line.setAttribute("x1", width / 2);
-    line.setAttribute("y1", 0);
-    line.setAttribute("x2", width / 2);
-    line.setAttribute("y2", height);
-    line.setAttribute("stroke-dasharray", "5, 5");
-    line.setAttribute("style", "stroke:black;stroke-width:2;");
-    viewport.appendChild(line);
-    return line;
+    addLine(width/2, -1*extension, width/2, extension, true, false);
 }
 
 var drawObject = function () {
-    var line = document.createElementNS(ns, "line");
-    line.setAttribute("x1", width / 2 - oDist);
-    line.setAttribute("y1", height / 2);
-    line.setAttribute("x2", width / 2 - oDist);
-    line.setAttribute("y2", height / 2 - oHeight);
-    line.setAttribute("style", "stroke:black;stroke-width:4;");
-    line.setAttribute("marker-end", "url(#arrowhead)");
-    viewport.appendChild(line);
-    return line;
+    addLine(width / 2 - oDist, height / 2, width / 2 - oDist, height / 2 - oHeight, false, true);
 }
 
 var drawFocusMarks = function () {
@@ -147,80 +124,37 @@ var drawFocusMarks = function () {
 
 var drawImage = function () {
     calculateImageValues();
-    var line = document.createElementNS(ns, "line");
-    line.setAttribute("x1", width / 2 + iDist);
-    line.setAttribute("y1", height / 2);
-    line.setAttribute("x2", width / 2 + iDist);
-    line.setAttribute("y2", height / 2 - iHeight);
-    line.setAttribute("style", "stroke:black;stroke-width:4;");
-    line.setAttribute("marker-end", "url(#arrowhead)");
-    viewport.appendChild(line);
-    return line;
+    addLine(width / 2 + iDist, height / 2, width / 2 + iDist, height / 2 - iHeight, false, true);
 }
 
 var drawRays = function () {
     var coords;
+    var intersection;
     var oX = width / 2 - oDist;
     var oY = height / 2 - oHeight;
     var iX = width / 2 + iDist;
     var iY = height / 2 - iHeight;
 
-    //FIRST PART OF RAY
-    var parallelRay = document.createElementNS(ns, "line");
-    var centerRay = document.createElementNS(ns, "line");
-    var focusRay = document.createElementNS(ns, "line");
+    //Center Rays
+    intersection = findIntersection(oX, oY, width/2, height/2, extension);//intersection point for line going through center from object
+    addLine(oX, oY, intersection[0], intersection[1], false, false);//line extending "infinitely" through center
+    intersection = findIntersection(oX, oY, width/2, height/2, -1*extension);//Intersection backtracing
+    addLine(oX, oY, intersection[0], intersection[1], true, false);
 
-    //set initial point to the object point
-    parallelRay.setAttribute("x1", oX);
-    parallelRay.setAttribute("y1", oY);
-    centerRay.setAttribute("x1", oX);
-    centerRay.setAttribute("y1", oY);
-    focusRay.setAttribute("x1", oX);
-    focusRay.setAttribute("y1", oY);
 
-    //For first part of parallel ray, draw horizontally to the center
-    parallelRay.setAttribute("x2", width / 2);
-    parallelRay.setAttribute("y2", oY);
+    //parallel to focus rays
+    addLine(oX, oY, width/2, oY, false, false); //line parallel to center
+    intersection = findIntersection(width/2, oY, width/2 + focus*sign, height/2, extension);
+    addLine(width/2, oY, intersection[0], intersection[1], false, false);//through focus ray
+    intersection = findIntersection(width/2, oY, width/2 + focus*sign, height/2, -1*extension);
+    addLine(width/2, oY, intersection[0], intersection[1], true, false);//false ray
 
-    //for for first part of center ray, draw the arrow straight to the image
-    centerRay.setAttribute("x2", iX);
-    centerRay.setAttribute("y2", iY);
+    //focus to parallel rays
+    intersection = findIntersection(oX, oY, width/2 - focus*sign, height/2, width/2);
+    addLine(oX, oY, intersection[0], intersection[1], false, false);//through focus to center
+    addLine(intersection[0], intersection[1], -1*extension, intersection[1], true, false);//false parallel
+    addLine(intersection[0], intersection[1], extension, intersection[1], false, false);//true parallel
 
-    //for first part of focus ray, draw to the intersection of ray with center
-    coords = findIntersection(oX, oY, width / 2 - (focus * sign), height / 2, width / 2);
-    focusRay.setAttribute("x2", coords[0]);
-    focusRay.setAttribute("y2", coords[1]);
-
-    //set style
-    parallelRay.setAttribute("style", "stroke:black;stroke-width:2;");
-    centerRay.setAttribute("style", "stroke:black;stroke-width:2;");
-    focusRay.setAttribute("style", "stroke:black;stroke-width:2;");
-
-    viewport.appendChild(parallelRay);
-    viewport.appendChild(centerRay);
-    viewport.appendChild(focusRay);
-
-    //SECOND PART OF RAY
-    parallelRay = document.createElementNS(ns, "line");
-    centerRay = document.createElementNS(ns, "line");
-    focusRay = document.createElementNS(ns, "line");
-
-    //set starting coords to the end points of the last lines
-
-    //for second part of parallel ray, draw through the focus
-
-    //for second part of center ray, continue it out of frame
-
-    //for second part of focus ray, continue parallel to intersection point
-
-    //set style
-    parallelRay.setAttribute("style", "stroke:black;stroke-width:2;");
-    centerRay.setAttribute("style", "stroke:black;stroke-width:2;");
-    focusRay.setAttribute("style", "stroke:black;stroke-width:2;");
-
-    viewport.appendChild(parallelRay);
-    viewport.appendChild(centerRay);
-    viewport.appendChild(focusRay);
 }
 
 var drawLen = function (x0, y0, x1, y1, xm, ym) {
@@ -348,6 +282,22 @@ var isFloat = function (input) {
     return true;
 }
 
+var addLine = function(x1, y1, x2, y2, isDashed, isArrow){
+    var line = document.createElementNS(ns, "line");
+    line.setAttribute("style", "stroke:black;stroke-width:2;");
+    line.setAttribute("x1", x1);
+    line.setAttribute("y1", y1);
+    line.setAttribute("x2", x2);
+    line.setAttribute("y2", y2);
+    if(isArrow){
+        line.setAttribute("marker-end", "url(#arrowhead)");
+    }
+    if(isDashed){
+        line.setAttribute("stroke-dasharray", "3, 3");
+    }
+    viewport.appendChild(line);
+}
+
 var printValues = function () {
     console.log("Sign: " + sign);
     console.log("Focus: " + focus);
@@ -367,7 +317,7 @@ var setEventListeners = function () {
 }
 
 var calculateImageValues = function () {
-    iDist = (1 / (1 / (sign * focus)) - (1 / oDist));
+    iDist = ((sign * focus)**-1 - oDist**-1)**-1;
     iHeight = -(iDist / oDist) * oHeight;
     iDistBox.value = iDist;
     iHeightBox.value = iHeight;
@@ -392,8 +342,9 @@ var createDefs = function () {
 
 //returns the (x, y) for the intersection of the vertical line y=x and line that passes through (x1, y1) and (x2, y2)
 var findIntersection = function (x1, y1, x2, y2, x) {
-    var slope = (y2 - y1) / (x2 - x1)
-    return (x, slope * (x - x1) + y1);
+    var slope = (y2 - y1) / (x2 - x1);
+    console.log(x);
+    return [x, slope * (x - x1) + y1];
 }
 
 //triggers download event in order to download the svg->png

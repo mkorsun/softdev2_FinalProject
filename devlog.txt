@@ -41,3 +41,6 @@ continued to battle with resizing because it is failing now
 
 JamesS -- 2018-06-07 17:22:10
 swapped to active sidebar and new navbar. added new styling.
+JamesS -- 2018-06-07 18:55:15
+reworked svg line drawing and finished ray diagram
+
