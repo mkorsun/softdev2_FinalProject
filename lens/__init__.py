@@ -81,7 +81,7 @@ def save():
         oDist = request.form["o_dist"]
         db.create_session(session[USER_SESSION], oDist, oHeight, focus)
         return "Session created"
-    else if( check_hash(session[USER_SESSION], hashcode) ):
+    elif( check_hash(session[USER_SESSION], hashcode) ):
         focus = request.form["focus"]
         oHeight = request.form["o_height"]
         oDist = request.form["o_dist"]

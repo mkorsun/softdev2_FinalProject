@@ -39,3 +39,6 @@ added ajax call for creating/updating sessions
 JamesS -- 2018-06-06 14:56:32
 continued to battle with resizing because it is failing now
 
+JamesS -- 2018-06-07 17:22:10
+swapped to active sidebar and new navbar
+

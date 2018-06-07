@@ -26,46 +26,46 @@ var canvas = document.querySelector('canvas'); //used for downloading
 
 //DRAWING FUNCTIONS ===============================================================================
 
-var drawEnvironment = function(){
+var drawEnvironment = function () {
     clear(); //clear screen for drawing
     drawPrincipal();
     drawMidLine();
-    if(sign != null){//if lens type is selected
-        if(focus != null && focus != 0){//if the focus isnt null or zero, draw the lens and check the object dimensions
-            drawLens(focus*sign);
+    if (sign != null) {//if lens type is selected
+        if (focus != null && focus != 0) {//if the focus isnt null or zero, draw the lens and check the object dimensions
+            drawLens(focus * sign);
             drawFocusMarks();
-            if(oDist != null && oDist != 0 && oHeight != null && oHeight != 0){ // if the object dimensions arent null or zero, draw the object, the rays, 
+            if (oDist != null && oDist != 0 && oHeight != null && oHeight != 0) { // if the object dimensions arent null or zero, draw the object, the rays, 
                 drawObject();
                 drawImage();
                 drawRays();
-            }else{
+            } else {
                 console.log("Object distance or height is null or zero");
             }
-        } else{
+        } else {
             console.log("Focus is null or zero");
         }
-    } else{
+    } else {
         console.log("Lens type not selected");
     }
 }
 
-var drawPrincipal = function(){
+var drawPrincipal = function () {
     var line = document.createElementNS(ns, "line");
     line.setAttribute("x1", 0);
-    line.setAttribute("y1", height/2);
+    line.setAttribute("y1", height / 2);
     line.setAttribute("x2", width);
-    line.setAttribute("y2", height/2);
+    line.setAttribute("y2", height / 2);
     line.setAttribute("stroke-dasharray", "5, 5");
     line.setAttribute("style", "stroke:black;stroke-width:2;");
     viewport.appendChild(line);
     return line;
 }
 
-var drawMidLine = function(){
+var drawMidLine = function () {
     var line = document.createElementNS(ns, "line");
-    line.setAttribute("x1", width/2);
+    line.setAttribute("x1", width / 2);
     line.setAttribute("y1", 0);
-    line.setAttribute("x2", width/2);
+    line.setAttribute("x2", width / 2);
     line.setAttribute("y2", height);
     line.setAttribute("stroke-dasharray", "5, 5");
     line.setAttribute("style", "stroke:black;stroke-width:2;");
@@ -73,103 +73,103 @@ var drawMidLine = function(){
     return line;
 }
 
-var drawObject = function(){
+var drawObject = function () {
     var line = document.createElementNS(ns, "line");
-    line.setAttribute("x1", width/2-oDist);
-    line.setAttribute("y1", height/2);
-    line.setAttribute("x2", width/2-oDist);
-    line.setAttribute("y2", height/2 - oHeight);
+    line.setAttribute("x1", width / 2 - oDist);
+    line.setAttribute("y1", height / 2);
+    line.setAttribute("x2", width / 2 - oDist);
+    line.setAttribute("y2", height / 2 - oHeight);
     line.setAttribute("style", "stroke:black;stroke-width:4;");
     line.setAttribute("marker-end", "url(#arrowhead)");
     viewport.appendChild(line);
     return line;
 }
 
-var drawFocusMarks = function(){
+var drawFocusMarks = function () {
     var notchHeight = 5; //height above the principal axis
     var textOffset = 20;//scale of text below principal axis
     var notch = document.createElementNS(ns, 'line');
     var text = document.createElementNS(ns, 'text');
-    text.setAttribute('x', width/2 - focus);
-    text.setAttribute('y', height/2 + textOffset);
+    text.setAttribute('x', width / 2 - focus);
+    text.setAttribute('y', height / 2 + textOffset);
     text.setAttribute('fill', 'black');
     text.textContent = 'F';
-    notch.setAttribute("x1", width/2-focus);
-    notch.setAttribute("y1", height/2 + notchHeight);
-    notch.setAttribute("x2", width/2-focus);
-    notch.setAttribute("y2", height/2 - notchHeight);
+    notch.setAttribute("x1", width / 2 - focus);
+    notch.setAttribute("y1", height / 2 + notchHeight);
+    notch.setAttribute("x2", width / 2 - focus);
+    notch.setAttribute("y2", height / 2 - notchHeight);
     notch.setAttribute("style", "stroke:black;stroke-width:2;");
     viewport.appendChild(notch);
     viewport.appendChild(text);
 
     notch = document.createElementNS(ns, 'line');
     text = document.createElementNS(ns, 'text');
-    text.setAttribute('x', width/2 + (focus));
-    text.setAttribute('y', height/2 + textOffset);
+    text.setAttribute('x', width / 2 + (focus));
+    text.setAttribute('y', height / 2 + textOffset);
     text.setAttribute('fill', 'black');
     text.textContent = 'F';
-    notch.setAttribute("x1", width/2+focus);
-    notch.setAttribute("y1", height/2 + notchHeight);
-    notch.setAttribute("x2", width/2+focus);
-    notch.setAttribute("y2", height/2 - notchHeight);
+    notch.setAttribute("x1", width / 2 + focus);
+    notch.setAttribute("y1", height / 2 + notchHeight);
+    notch.setAttribute("x2", width / 2 + focus);
+    notch.setAttribute("y2", height / 2 - notchHeight);
     notch.setAttribute("style", "stroke:black;stroke-width:2;");
     viewport.appendChild(notch);
     viewport.appendChild(text);
 
     notch = document.createElementNS(ns, 'line');
     text = document.createElementNS(ns, 'text');
-    text.setAttribute('x', width/2 - (2*focus));
-    text.setAttribute('y', height/2 + textOffset);
+    text.setAttribute('x', width / 2 - (2 * focus));
+    text.setAttribute('y', height / 2 + textOffset);
     text.setAttribute('fill', 'black');
     text.textContent = '2F';
-    notch.setAttribute("x1", width/2-2*focus);
-    notch.setAttribute("y1", height/2 + notchHeight);
-    notch.setAttribute("x2", width/2-2*focus);
-    notch.setAttribute("y2", height/2 - notchHeight);
+    notch.setAttribute("x1", width / 2 - 2 * focus);
+    notch.setAttribute("y1", height / 2 + notchHeight);
+    notch.setAttribute("x2", width / 2 - 2 * focus);
+    notch.setAttribute("y2", height / 2 - notchHeight);
     notch.setAttribute("style", "stroke:black;stroke-width:2;");
     viewport.appendChild(notch);
     viewport.appendChild(text);
 
     notch = document.createElementNS(ns, 'line');
     text = document.createElementNS(ns, 'text');
-    text.setAttribute('x', width/2 + (2*focus));
-    text.setAttribute('y', height/2 + textOffset);
+    text.setAttribute('x', width / 2 + (2 * focus));
+    text.setAttribute('y', height / 2 + textOffset);
     text.setAttribute('fill', 'black');
     text.textContent = '2F';
-    notch.setAttribute("x1", width/2+2*focus);
-    notch.setAttribute("y1", height/2 + notchHeight);
-    notch.setAttribute("x2", width/2+2*focus);
-    notch.setAttribute("y2", height/2 - notchHeight);
+    notch.setAttribute("x1", width / 2 + 2 * focus);
+    notch.setAttribute("y1", height / 2 + notchHeight);
+    notch.setAttribute("x2", width / 2 + 2 * focus);
+    notch.setAttribute("y2", height / 2 - notchHeight);
     notch.setAttribute("style", "stroke:black;stroke-width:2;");
     viewport.appendChild(notch);
     viewport.appendChild(text);
 }
 
-var drawImage = function(){
+var drawImage = function () {
     calculateImageValues();
     var line = document.createElementNS(ns, "line");
-    line.setAttribute("x1", width/2+iDist);
-    line.setAttribute("y1", height/2);
-    line.setAttribute("x2", width/2+iDist);
-    line.setAttribute("y2", height/2 - iHeight);
+    line.setAttribute("x1", width / 2 + iDist);
+    line.setAttribute("y1", height / 2);
+    line.setAttribute("x2", width / 2 + iDist);
+    line.setAttribute("y2", height / 2 - iHeight);
     line.setAttribute("style", "stroke:black;stroke-width:4;");
     line.setAttribute("marker-end", "url(#arrowhead)");
     viewport.appendChild(line);
     return line;
 }
 
-var drawRays = function(){
+var drawRays = function () {
     var coords;
-    var oX = width/2 - oDist;
-    var oY = height/2 - oHeight;
-    var iX = width/2+iDist;
-    var iY = height/2 - iHeight;
+    var oX = width / 2 - oDist;
+    var oY = height / 2 - oHeight;
+    var iX = width / 2 + iDist;
+    var iY = height / 2 - iHeight;
 
     //FIRST PART OF RAY
     var parallelRay = document.createElementNS(ns, "line");
     var centerRay = document.createElementNS(ns, "line");
     var focusRay = document.createElementNS(ns, "line");
-    
+
     //set initial point to the object point
     parallelRay.setAttribute("x1", oX);
     parallelRay.setAttribute("y1", oY);
@@ -177,9 +177,9 @@ var drawRays = function(){
     centerRay.setAttribute("y1", oY);
     focusRay.setAttribute("x1", oX);
     focusRay.setAttribute("y1", oY);
-    
+
     //For first part of parallel ray, draw horizontally to the center
-    parallelRay.setAttribute("x2", width/2);
+    parallelRay.setAttribute("x2", width / 2);
     parallelRay.setAttribute("y2", oY);
 
     //for for first part of center ray, draw the arrow straight to the image
@@ -187,7 +187,7 @@ var drawRays = function(){
     centerRay.setAttribute("y2", iY);
 
     //for first part of focus ray, draw to the intersection of ray with center
-    coords = findIntersection(oX, oY, width/2 - (focus*sign), height/2, width/2);
+    coords = findIntersection(oX, oY, width / 2 - (focus * sign), height / 2, width / 2);
     focusRay.setAttribute("x2", coords[0]);
     focusRay.setAttribute("y2", coords[1]);
 
@@ -223,17 +223,17 @@ var drawRays = function(){
     viewport.appendChild(focusRay);
 }
 
-var drawLen = function(x0, y0, x1, y1, xm, ym){
+var drawLen = function (x0, y0, x1, y1, xm, ym) {
     //postive = convex, negative = concave                                      
     var path = document.createElementNS(ns, "path");
     path.setAttribute("d", `M${x0} ${y0} Q ${x1} ${y1} ${xm} ${ym}`);
     path.setAttribute("stroke", "black");
     path.setAttribute("fill", "transparent");
     viewport.appendChild(path);
-    return path;     
+    return path;
 };
 
-var connect = function( x0, x1, y0, y1 ){
+var connect = function (x0, x1, y0, y1) {
     var top = document.createElementNS(ns, "line");
     top.setAttribute("x1", x0);
     top.setAttribute("x2", x1);
@@ -250,29 +250,29 @@ var connect = function( x0, x1, y0, y1 ){
     viewport.appendChild(bot);
 };
 
-var drawLens = function(focalLen){
-    let center = width/2;
-    let mid = height/2;
+var drawLens = function (focalLen) {
+    let center = width / 2;
+    let mid = height / 2;
     let top = 10;
     let bot = height - top;
-    if(focalLen > 0){
+    if (focalLen > 0) {
         let offset = 15;
-        drawLen( center, top, center + offset, mid, center, bot );
-        drawLen( center, top, center - offset, mid, center, bot );
+        drawLen(center, top, center + offset, mid, center, bot);
+        drawLen(center, top, center - offset, mid, center, bot);
     }
-    else{
+    else {
         let outerOffset = 10;
         let innerOffset = -5;
-        drawLen( center + outerOffset, top, center + innerOffset, mid, center + outerOffset, bot);
-        drawLen( center - outerOffset, top, center - innerOffset, mid, center - outerOffset, bot);
-	connect( center + outerOffset, center - outerOffset, top, bot);
+        drawLen(center + outerOffset, top, center + innerOffset, mid, center + outerOffset, bot);
+        drawLen(center - outerOffset, top, center - innerOffset, mid, center - outerOffset, bot);
+        connect(center + outerOffset, center - outerOffset, top, bot);
     }
 };
 
 //EVENT HANDLERS ===============================================================================
 
 //converts svg to png and triggers download event
-var download = function(e){
+var download = function (e) {
     var canvas = document.getElementById('canvas');
     canvas.setAttribute("width", width);
     canvas.setAttribute("height", height);
@@ -281,7 +281,7 @@ var download = function(e){
     var DOMURL = window.URL || window.webkitURL || window;
 
     var img = new Image();
-    var svgBlob = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
+    var svgBlob = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
     var url = DOMURL.createObjectURL(svgBlob);
 
     img.onload = function () {
@@ -298,33 +298,33 @@ var download = function(e){
     img.src = url;
 }
 
-var swapSign = function(e){
-    if(convex.checked){
+var swapSign = function (e) {
+    if (convex.checked) {
         sign = 1;
     }
-    else{
+    else {
         sign = -1;
     }
     drawEnvironment();
 }
 
-var updateFocus = function(e){
+var updateFocus = function (e) {
     console.log(isFloat(focusBox.value));
-    if(isFloat(focusBox.value)){
+    if (isFloat(focusBox.value)) {
         focus = parseFloat(focusBox.value);
     }
     drawEnvironment();
 }
 
-var updateODist = function(e){
-    if(isFloat(oDistBox.value)){
+var updateODist = function (e) {
+    if (isFloat(oDistBox.value)) {
         oDist = parseFloat(oDistBox.value);
     }
     drawEnvironment();
 }
 
-var updateOHeight = function(e){
-    if(isFloat(oHeightBox.value)){
+var updateOHeight = function (e) {
+    if (isFloat(oHeightBox.value)) {
         oHeight = parseFloat(oHeightBox.value);
     }
     drawEnvironment();
@@ -333,29 +333,29 @@ var updateOHeight = function(e){
 // HELPER FUNCTIONS ===============================================================================
 
 //deletes everything on the screen
-var clear = function(){
-    while(viewport.firstChild){
-	    viewport.removeChild(viewport.firstChild);
+var clear = function () {
+    while (viewport.firstChild) {
+        viewport.removeChild(viewport.firstChild);
     }
 }
 
 //returns true if something is a float
-var isFloat = function(input){
+var isFloat = function (input) {
     var val = parseFloat(val);
-    if(val = NaN){
+    if (val = NaN) {
         return false;
     }
     return true;
 }
 
-var printValues = function(){
+var printValues = function () {
     console.log("Sign: " + sign);
     console.log("Focus: " + focus);
     console.log("Object Distance: " + oDist);
     console.log("Object Height: " + oHeight);
 }
 
-var setEventListeners = function(){
+var setEventListeners = function () {
     saveButton.addEventListener("click", save);
     downloadButton.addEventListener("click", download);
     radioDiv.addEventListener("click", swapSign);
@@ -366,14 +366,14 @@ var setEventListeners = function(){
     oHeightBox.addEventListener("input", updateOHeight);
 }
 
-var calculateImageValues = function(){
-    iDist = (1/(1/(sign*focus))-(1/oDist));
-    iHeight = -(iDist/oDist) * oHeight;
+var calculateImageValues = function () {
+    iDist = (1 / (1 / (sign * focus)) - (1 / oDist));
+    iHeight = -(iDist / oDist) * oHeight;
     iDistBox.value = iDist;
     iHeightBox.value = iHeight;
 }
 
-var createDefs = function(){
+var createDefs = function () {
     var defs = document.createElementNS(ns, "defs");
     var marker = document.createElementNS(ns, "marker");
     marker.setAttribute("viewBox", "-6 -6 12 12");
@@ -391,35 +391,53 @@ var createDefs = function(){
 }
 
 //returns the (x, y) for the intersection of the vertical line y=x and line that passes through (x1, y1) and (x2, y2)
-var findIntersection = function(x1, y1, x2, y2, x){
-    var slope = (y2-y1)/(x2-x1)
-    return (x, slope*(x-x1)+y1);
+var findIntersection = function (x1, y1, x2, y2, x) {
+    var slope = (y2 - y1) / (x2 - x1)
+    return (x, slope * (x - x1) + y1);
 }
 
 //triggers download event in order to download the svg->png
-var triggerDownload = function(imgURI) {
+var triggerDownload = function (imgURI) {
     var evt = new MouseEvent('click', {
-      view: window,
-      bubbles: false,
-      cancelable: true
+        view: window,
+        bubbles: false,
+        cancelable: true
     });
-  
+
     var a = document.createElement('a');
     a.setAttribute('download', 'diagram.png');
     a.setAttribute('href', imgURI);
     a.setAttribute('target', '_blank');
-  
+
     a.dispatchEvent(evt);
 }
 
 //CODE ===============================================================================
-svg.addEventListener('load', function(){
-    var diagram = svgPanZoom('#svg_id', {zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true, maxZoom: 100, minZoom: -5});
-    window.addEventListener("resize", function(){ diagram.resize(); diagram.fit(); diagram.center();});
+svg.addEventListener('load', function () {
+    var diagram = svgPanZoom('#svg_id', { zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true, maxZoom: 100, minZoom: -5 });
+    window.addEventListener("resize", function () { diagram.resize(); diagram.updateBBox(); diagram.fit(); diagram.center(); });
     viewport = document.getElementsByClassName("svg-pan-zoom_viewport")[0];
     createDefs();
     setEventListeners();
-    width = svg.width.baseVal.value;
-    height = svg.height.baseVal.value;
+    width = diagram.getSizes().width;
+    height = diagram.getSizes().height;
     drawEnvironment();
+});
+
+$(document).ready(function () {
+
+    $("#sidebar").mCustomScrollbar({
+          theme: "minimal"
+    });
+
+    $('#sidebarCollapse').on('click', function () {
+          // open or close navbar
+          $('#sidebar').toggleClass('active');
+          // close dropdowns
+          $('.collapse.in').toggleClass('in');
+          // and also adjust aria-expanded attributes we use for the open/closed arrows
+          // in our CSS
+          $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+    });
+
 });

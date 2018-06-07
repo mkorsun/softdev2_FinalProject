@@ -1,94 +1,90 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="description" content="">
-      <meta name="author" content="">
-    <!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">-->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" >
-    {% block head %}
-    {% endblock %}
-    <title>
-      {% block title %}
-      {% endblock %}
-    </title>
-  </head>
-  <body>
-      <div id="bodyborder">
-          <nav class="navbar fixed-top navbar-toggleable-md navbar-inverse">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-        
-            <ul class="navbar-nav mr-auto">
-        
-              <li class="nav-item navbar-center" style="top: 0px;">
-                <a class="" href="/" ><img border="0" src="{{ url_for('static', filename='logo.png') }}" alt="logo" height="75px"></a>
-              </li>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        
-        
-              <li class="nav-item active">
-                <a class="nav-link" href="/">Home</a>
-              </li>
-              {% if logged %}
-              <li class="nav-item active">
-                <a class="nav-link" href="/profile">Profile</a>
-              </li>
-              {% endif %}
-              <li class="nav-item active">
-                <a class="nav-link" href="/diagram">Create a Diagram</a>
-              </li>
-          </div>
-          </ul>
-        
-          {% if logged %}
-          <li class="nav-item navbar-right active">
-            <a class="btn nav-link-success btn-outline-danger" href="/logout">Logout</a>
-          </li>
-        
-          {% else %} 
-        
-            <li class="nav-item navbar-right active">
-              <a class="btn nav-link-success btn-outline-info " href="/login">Login</a>
-            </li>
-            {% endif %}
-          </nav>
-          <br><br>
-          <center>
-            <div class="content">
-              <br>
-              {% block content %}
-              {% endblock %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"> {% block head %} {% endblock %}
+  <title>
+    {% block title %} {% endblock %}
+  </title>
+</head>
+
+<body>
+  <div class="wrapper">
+    {% block sidebar %} {% endblock %}
+    <nav class="navbar navbar-fixed-top">
+        <div class="container">
+            <!-- Navbar Header [collects both toggle button and navbar brand] -->
+            <div class="navbar-header">
+                <!-- Toggle Button [handles opening navbar menu on mobile screens]-->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#exampleNavComponents" aria-expanded="false">
+                    <i class="glyphicon glyphicon-align-center"></i>
+                </button>
+                {% block sidebarButton %}
+                {% endblock %}
+                <!-- Navbar Brand -->
+                <div class="navbar-center">
+                <a class="" href="/">
+                  <img border="0" src="{{ url_for('static', filename='logo.png') }}" alt="logo" height="75px">
+                </a>
+              </div>
             </div>
-          </center>
-        
-          <style>
-          .footer {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color:#B82601;
-            color: white;
-            text-align: center;
-          }
-        </style>
-        
-        <div class="footer" style="background-color: #7aa2b3;">
-          <p  style="padding-top: 6px; font-size: 10px;">
-            James Smith, Max Korsun, Angel Ng, Connie Lei<br>
-            Softdev Final Project
-         
+            <!-- Navbar Collapse [collect navbar components such as navbar links and forms ] -->
+            <div class="collapse navbar-collapse" id="exampleNavComponents">
+
+                <!-- Navbar Links -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="/">Home</a>
+                    </li>
+                    {% if logged %}
+                    <li class="nav-item active">
+                      <a class="nav-link" href="/profile">Profile</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item active">
+                      <a class="nav-link" href="/diagram">Create a Diagram</a>
+                    </li>
+                    {% if logged %}
+                    <li class="nav-item navbar-right active">
+                      <a class="btn nav-link-success btn-outline-danger" href="/logout">Logout</a>
+                    </li>
+      
+                    {% else %}
+      
+                    <li class="nav-item navbar-right active">
+                      <a class="btn nav-link-success btn-outline-info " href="/login">Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-        
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-              {% block customscript %}
-              {% endblock %}
-        </div>
-  </body>
+    </nav>
+    <br>
+    <br>
+    <div class="content">
+      {% block content %} {% endblock %}
+    </div>
+
+    <div class="footer">
+      <p style="padding-top: 6px; font-size: 10px;">
+        James Smith, Max Korsun, Angel Ng, Connie Lei
+        <br> Softdev Final Project
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+      crossorigin="anonymous"></script> {% block customscript %} {% endblock %}
+</body>
+
 </html>
