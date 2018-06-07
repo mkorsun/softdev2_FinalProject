@@ -20,6 +20,7 @@ var oDistBox = document.getElementById("oDist");
 var oHeightBox = document.getElementById("oHeight");
 var iDistBox = document.getElementById("iDist");
 var iHeightBox = document.getElementById("iHeight");
+var svgContainer = document.getElementById("container");
 var viewport; //transformation window
 var canvas = document.querySelector('canvas'); //used for downloading
 
@@ -270,10 +271,6 @@ var drawLens = function(focalLen){
 
 //EVENT HANDLERS ===============================================================================
 
-var save = function(e){
-    //code for ajax call sending over diagram data
-}
-
 //converts svg to png and triggers download event
 var download = function(e){
     var canvas = document.getElementById('canvas');
@@ -362,6 +359,8 @@ var setEventListeners = function(){
     saveButton.addEventListener("click", save);
     downloadButton.addEventListener("click", download);
     radioDiv.addEventListener("click", swapSign);
+    concave.addEventListener("click", swapSign);
+    convex.addEventListener("click", swapSign);
     focusBox.addEventListener("input", updateFocus);
     oDistBox.addEventListener("input", updateODist);
     oHeightBox.addEventListener("input", updateOHeight);
