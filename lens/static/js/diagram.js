@@ -243,7 +243,6 @@ var swapSign = function (e) {
 }
 
 var updateFocus = function (e) {
-    console.log(isFloat(focusBox.value));
     if (isFloat(focusBox.value)) {
         focus = parseFloat(focusBox.value);
     }
@@ -343,7 +342,6 @@ var createDefs = function () {
 //returns the (x, y) for the intersection of the vertical line y=x and line that passes through (x1, y1) and (x2, y2)
 var findIntersection = function (x1, y1, x2, y2, x) {
     var slope = (y2 - y1) / (x2 - x1);
-    console.log(x);
     return [x, slope * (x - x1) + y1];
 }
 
