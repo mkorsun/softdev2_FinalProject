@@ -44,3 +44,6 @@ swapped to active sidebar and new navbar. added new styling.
 JamesS -- 2018-06-07 18:55:15
 reworked svg line drawing and finished ray diagram
 
+ConnieL -- 2018-06-08 13:31:18
+debugged ajax calls, all working now, finished profile relinking/hyperlinks, get for diagram page
+
