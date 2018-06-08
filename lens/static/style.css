@@ -256,6 +256,7 @@ a.article, a.article:hover {
   padding-top: 2.5%;
   padding-left: 2.5%;
   padding-right: 2.5%;
+  width: 100%
 }
 /* ---------------------------------------------------
     MEDIAQUERIES
@@ -270,4 +271,9 @@ a.article, a.article:hover {
     #sidebarCollapse span {
         display: none;
     }
+}
+
+
+.bot{
+    margin-bottom: 60px;
 }
