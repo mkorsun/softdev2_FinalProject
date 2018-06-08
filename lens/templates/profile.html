@@ -33,7 +33,8 @@
 {% endfor %}
 
 <div class="modal-body row bot">
-  <div class="container login">
+  <div class="col-md-4"></div>
+  <div class="col-md-4 container login">
     <form method="POST" action="/changepass">
       <div class="form-group">
         <label for="oldpass">Current Password</label>
@@ -46,5 +47,6 @@
       <input class="btn btn-info btn-block" type="submit" name="form" value="Submit">
     </form>
   </div>
+  <div class="col-md-4"></div>
 </div>
 {% endblock %}
