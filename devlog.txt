@@ -47,3 +47,6 @@ reworked svg line drawing and finished ray diagram
 ConnieL -- 2018-06-08 13:31:18
 debugged ajax calls, all working now, finished profile relinking/hyperlinks, get for diagram page
 
+ConnieL -- 2018-06-08 14:07:26
+css changes
+
