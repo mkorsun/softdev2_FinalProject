@@ -26,13 +26,18 @@ def root():
 
 @app.route('/diagram')
 def diagram():
-    return render_template('diagram.html', logged = is_logged())
+    print request.args
+    h = None
+    if("h" in request.args):
+        h = db.get_session(request.args["h"])
+        print h
+    return render_template('diagram.html', logged = is_logged(), h = h)
 
 @app.route('/profile')
 def profle():
     if(not is_logged()):
         return redirect(url_for("login"))
-    return render_template('profile.html', logged = is_logged(), username = session[USER_SESSION], sessions = db.get_owned_sessions(session[USER_SESSION]))
+    return render_template('profile.html', logged = is_logged(), username = session[USER_SESSION], sessions = db.get_user_sessions_details(session[USER_SESSION]))
 
 @app.route('/login', methods = ['POST','GET'])
 def login():
@@ -74,19 +79,19 @@ def changepass():
 #AJAX CALLS
 @app.route("/save", methods = ['POST'])
 def save():
-    hashcode = str(request.form["hash"])
-    username = str(request.form["username"])
+    hashcode = request.form["hash"]
+    username = request.form["username"]
+    focus = request.form["focus"] if request.form["focus"] != 'NaN' else 'null'
+    oHeight = request.form["o_height"] if request.form["o_height"] != 'NaN' else 'null'
+    oDist = request.form["o_dist"] if request.form["o_dist"] !='NaN' else 'null'
+    sign = request.form["sign"] if request.form["sign"] != 'NaN' else 'null'
     if (hashcode == ""):
-        focus = 0 if (request.form["focus"] == 'null' or request.form["focus"] == 'NaN') else int(request.form["focus"])
-        oHeight = 0 if (request.form["o_height"] == 'null' or request.form["o_height"] == 'NaN') else int(request.form["o_height"])
-        oDist = 0 if (request.form["o_dist"] == 'null' or request.form["o_dist"] =='NaN') else int(request.form["o_dist"])
-        db.create_session(username, oDist, oHeight, focus)
+        print "hash doens't exist"
+        db.create_session(username, oDist, oHeight, focus, sign)
         return "Session created"
-    elif( check_hash(username, hashcode) ):
-        focus = 0 if (request.form["focus"] == 'null' or request.form["focus"] == 'NaN') else int(request.form["focus"])
-        oHeight = 0 if (request.form["o_height"] == 'null' or request.form["o_height"] == 'NaN') else int(request.form["o_height"])
-        oDist = 0 if (request.form["o_dist"] == 'null' or request.form["o_dist"] =='NaN') else int(request.form["o_dist"])
-        db.update_session(hashcode, oDist, oHeight, focus)
+    elif( db.check_hash(username, hashcode) ):
+        print "checking user"
+        db.update_session(hashcode, oDist, oHeight, focus, sign)
         return "Session updated"
     return "Something broke"
 

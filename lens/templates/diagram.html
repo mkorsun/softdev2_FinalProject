@@ -46,11 +46,11 @@
 
 {% block sidebarButton %}
 <div class="navbar-left">
-            <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
-                <i class="glyphicon glyphicon-align-left"></i>
-              </button>
-        </div>
-        {% endblock %}
+  <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+    <i class="glyphicon glyphicon-align-left"></i>
+  </button>
+</div>
+{% endblock %}
 
 {% block content %}
 <div class="svg_container" id="container">
@@ -61,9 +61,36 @@
 
 {% block customscript %}
 <script src="{{ url_for('static', filename='js/diagram.js') }}"></script>
-<script src="{{ url_for('static', filename='js/ajax.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-<script>{% if logged %}
-  var username = '{{ session["logged_in"] }}'
-{% endif %}</script>
+
+{% if logged %}
+<script> var username = '{{ session["logged_in"] }}'; </script>
+<script src="{{ url_for('static', filename='js/ajax.js') }}"></script>
+{% else %}
+<script> var username = null;</script>
+{% endif %}
+
+{% if h %}
+<script>
+  {% if h.focus %}
+  focus = {{h.focus}}
+  focusBox.value = focus
+  {% endif %}
+  {% if h.o_dis %}
+  oDist = {{h.o_dis}}
+  oDistBox.value = oDist
+  {% endif %}
+  {% if h.o_height %}
+  oHeight = {{h.o_height}}
+  oHeightBox.value=oHeight
+  {% endif %}
+  {% if h.sign %}sign = {{h.sign}}{% endif %}
+  hash_id = {{h.hash}}
+</script>
+{% else %}
+<script>
+  hash_id = ""
+</script>
+{% endif %}
+
 {% endblock %}

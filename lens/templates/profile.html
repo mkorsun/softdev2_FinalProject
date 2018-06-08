@@ -11,8 +11,14 @@
   </div>
 </div>
 
-{% for session in sessions %}
-{{session}}<br>
+{% for s in sessions %}
+<a href="diagram?h={{s[0]}}">
+  <div>
+    Focus: {{s[1]}}
+    Object Height: {{s[2]}}
+    Object Distance: {{s[3]}}
+  </div>
+</a>
 {% endfor %}
 
 <div class="modal-body row">

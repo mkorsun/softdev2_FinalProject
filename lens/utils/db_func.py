@@ -77,11 +77,13 @@ def create_new_hash():
         new_hash = zlib.adler32(os.urandom(10))
     return new_hash
 
-def create_session(username, o_dist, o_height, focus):
+def create_session(username, o_dist, o_height, focus, sign):
     db = sqlite3.connect(f)
     c = db.cursor()
     #assumes user exists
-    c.execute("INSERT INTO sessions VALUES('%s', (SELECT id FROM users WHERE username = '%s'), %d, %d, %d)" % (create_new_hash(), username, o_dist, o_height, focus))
+    exe = "INSERT INTO sessions VALUES('%s', (SELECT id FROM users WHERE username = '%s'), %s, %s, %s, %s)" % (create_new_hash(), username, o_dist, o_height, focus, sign)
+    print exe
+    c.execute(exe)
     db.commit()
     db.close()
 
@@ -95,6 +97,8 @@ def get_session(hashcode):
     info["o_dis"] = raw[2]
     info["o_height"] = raw[3]
     info["focus"] = raw[4]
+    info["sign"] = raw[5]
+    print info
     db.commit()
     db.close()
     return info
@@ -107,10 +111,12 @@ def get_owned_sessions(username):
     db.close()
     return info
 
-def update_session(hashcode, o_dist, o_height, focus):
+def update_session(hashcode, o_dist, o_height, focus, sign):
     db = sqlite3.connect(f)
     c = db.cursor()
-    c.execute("UPDATE sessions SET o_dist='%s', o_height=%d, focus=%d  WHERE hash_id = '%s'" % (o_dist, o_height, focus, hashcode))
+    exe = "UPDATE sessions SET o_dist=%s, o_height=%s, focus=%s, sign=%s WHERE hash_id=%s" % (o_dist, o_height, focus, sign, hashcode)
+    print exe
+    c.execute(exe)
     db.commit()
     db.close()
 
@@ -121,3 +127,28 @@ def check_hash(username, hashcode):
     db.commit()
     db.close()
     return st
+
+def get_user_sessions_details(username):
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    details = c.execute("SELECT hash_id, focus, o_height, o_dist, sign FROM sessions WHERE id = (SELECT id FROM users WHERE username = '%s')" % (username)).fetchall()
+    print details
+    db.commit()
+    db.close()
+    return details
+    
+def get_sessions_details(sessions):
+    db = sqlite3.connect(f)
+    c = db.cursor()
+    print("SELECT * FROM sessions WHERE hash_id in ('%s')" % (",".join(str(e) for e in sessions)))
+    details = c.execute("SELECT hash_id, focus, o_height, o_dist, sign FROM sessions WHERE hash_id in (%s)" % (",".join(str(e) for e in sessions))).fetchall()
+    print details
+    db.commit()
+    db.close()
+    return details
+
+#get_user_sessions_details("admin")
+#get_sessions_details([414581764, 322438084])
+
+#create_session("admin", 12, 12, "Null", 0)
+#print(get_session(393151666))

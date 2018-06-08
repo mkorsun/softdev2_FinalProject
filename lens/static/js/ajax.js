@@ -1,19 +1,11 @@
-var getHash = function(e){
-    for (q in location.search.split("&")){
-	if (q.includes("h")){
-	    return q.split("=")[1];
-	}
-    }
-    return "";
-};
-
 var getData = function(e){
     var formData = new FormData();
     formData.append('username', username);
     formData.append('o_dist', oDist );
     formData.append('o_height', oHeight);
     formData.append('focus', focus);
-    formData.append('hash', getHash(e));
+    formData.append('hash', hash_id);
+    formData.append('sign', sign);
     return formData;
 };
 
