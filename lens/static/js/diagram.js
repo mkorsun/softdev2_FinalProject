@@ -7,6 +7,7 @@ var iDist = null; //Distance of image from lens
 var iHeight = null; //height of image relative to principal axis
 var height;
 var width;
+var diagram;
 var extension = 10000;
 
 //DOM ELEMENTS ===============================================================================
@@ -365,8 +366,8 @@ var triggerDownload = function (imgURI) {
 
 //CODE ===============================================================================
 svg.addEventListener('load', function () {
-    var diagram = svgPanZoom('#svg_id', { zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true, maxZoom: 100, minZoom: -5 });
-    window.addEventListener("resize", function () { diagram.resize(); diagram.updateBBox(); diagram.fit(); diagram.center(); });
+    diagram = svgPanZoom('#svg_id', { zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true, maxZoom: 100, minZoom: -5 });
+    window.addEventListener("resize", function () { diagram.resize(); diagram.fit(); diagram.center(); });
     viewport = document.getElementsByClassName("svg-pan-zoom_viewport")[0];
     createDefs();
     setEventListeners();
