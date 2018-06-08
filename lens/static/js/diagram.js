@@ -305,7 +305,9 @@ var printValues = function () {
 }
 
 var setEventListeners = function () {
-    saveButton.addEventListener("click", save);
+    if(username){
+	saveButton.addEventListener("click", save);
+    }
     downloadButton.addEventListener("click", download);
     radioDiv.addEventListener("click", swapSign);
     concave.addEventListener("click", swapSign);

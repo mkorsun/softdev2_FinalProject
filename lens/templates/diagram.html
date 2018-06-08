@@ -57,7 +57,13 @@
       <svg xmlns="http://www.w3.org/2000/svg" id="svg_id" viewBox="0 0 1280 500" height=500 width=100%></svg>
 </div>
 <canvas id="canvas" hidden></canvas>
-{% endblock %} {% block customscript %}
+{% endblock %}
+
+{% block customscript %}
 <script src="{{ url_for('static', filename='js/diagram.js') }}"></script>
 <script src="{{ url_for('static', filename='js/ajax.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script> {% endblock %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<script>{% if logged %}
+  var username = '{{ session["logged_in"] }}'
+{% endif %}</script>
+{% endblock %}

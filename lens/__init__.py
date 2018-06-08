@@ -74,17 +74,18 @@ def changepass():
 #AJAX CALLS
 @app.route("/save", methods = ['POST'])
 def save():
-    hashcode = request.form["hash"]
+    hashcode = str(request.form["hash"])
+    username = str(request.form["username"])
     if (hashcode == ""):
-        focus = request.form["focus"]
-        oHeight = request.form["o_height"]
-        oDist = request.form["o_dist"]
-        db.create_session(session[USER_SESSION], oDist, oHeight, focus)
+        focus = 0 if (request.form["focus"] == 'null' or request.form["focus"] == 'NaN') else int(request.form["focus"])
+        oHeight = 0 if (request.form["o_height"] == 'null' or request.form["o_height"] == 'NaN') else int(request.form["o_height"])
+        oDist = 0 if (request.form["o_dist"] == 'null' or request.form["o_dist"] =='NaN') else int(request.form["o_dist"])
+        db.create_session(username, oDist, oHeight, focus)
         return "Session created"
-    elif( check_hash(session[USER_SESSION], hashcode) ):
-        focus = request.form["focus"]
-        oHeight = request.form["o_height"]
-        oDist = request.form["o_dist"]
+    elif( check_hash(username, hashcode) ):
+        focus = 0 if (request.form["focus"] == 'null' or request.form["focus"] == 'NaN') else int(request.form["focus"])
+        oHeight = 0 if (request.form["o_height"] == 'null' or request.form["o_height"] == 'NaN') else int(request.form["o_height"])
+        oDist = 0 if (request.form["o_dist"] == 'null' or request.form["o_dist"] =='NaN') else int(request.form["o_dist"])
         db.update_session(hashcode, oDist, oHeight, focus)
         return "Session updated"
     return "Something broke"

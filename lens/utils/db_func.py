@@ -72,16 +72,16 @@ def does_hash_exist(hashcode):
     return st
 
 def create_new_hash():
-    new_hash = zlib.adler32(os.urandom(10)).hexdigest()
+    new_hash = zlib.adler32(os.urandom(10))
     while(does_hash_exist(new_hash)):
-        new_hash = zlib.adler32(os.urandom(10)).hexdigest()
+        new_hash = zlib.adler32(os.urandom(10))
     return new_hash
 
 def create_session(username, o_dist, o_height, focus):
     db = sqlite3.connect(f)
     c = db.cursor()
     #assumes user exists
-    c.execute("INSERT INTO sessions VALUES('%s', (SELECT id FROM users WHERE username = '%s'), %d, %d, %d" % (create_new_hash(), username, o_dist, o_height, focus))
+    c.execute("INSERT INTO sessions VALUES('%s', (SELECT id FROM users WHERE username = '%s'), %d, %d, %d)" % (create_new_hash(), username, o_dist, o_height, focus))
     db.commit()
     db.close()
 
