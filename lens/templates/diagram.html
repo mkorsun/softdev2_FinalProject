@@ -8,10 +8,10 @@
       <ul class="list-unstyled CTAs">
             <center>
                   <div class="btn-group btn-group-toggle" data-toggle="buttons" id="radioDiv">
-                        <label class="btn btn-secondary active">
+                        <label class="btn btn-secondary active {% if h.sign == -1 %}focus{% endif %}">
                               <input type="radio" name="type" id="concave">Concave
                         </label>
-                        <label class="btn btn-secondary">
+                        <label class="btn btn-secondary {% if h.sign == 1 %}focus{% endif %}">
                               <input type="radio" name="type" id="convex">Convex
                         </label>
                   </div>
@@ -73,18 +73,25 @@
 {% if h %}
 <script>
   {% if h.focus %}
-  focus = {{h.focus}}
-  focusBox.value = focus
+  focus = {{h.focus}};
+  focusBox.value = focus;
   {% endif %}
   {% if h.o_dis %}
-  oDist = {{h.o_dis}}
-  oDistBox.value = oDist
+  oDist = {{h.o_dis}};
+  oDistBox.value = oDist;
   {% endif %}
   {% if h.o_height %}
-  oHeight = {{h.o_height}}
-  oHeightBox.value=oHeight
+  oHeight = {{h.o_height}};
+  oHeightBox.value=oHeight;
   {% endif %}
-  {% if h.sign %}sign = {{h.sign}}{% endif %}
+  {% if h.sign %}
+  sign = {{h.sign}};
+  {% if h.sign == -1 %}
+  concave.checked = true;
+  {% else %}
+  convex.checked = true;
+  {% endif %}
+  {% endif %}
   hash_id = {{h.hash}}
 </script>
 {% else %}
