@@ -11,26 +11,34 @@
   </div>
 </div>
 
-{% for s in sessions %}
-<a href="diagram?h={{s[0]}}">
-  <div>
-    Focus: {{s[1]}}
-    <br>
-    Object Height: {{s[2]}}
-    <br>
-    Object Distance: {{s[3]}}
-    <br>
-    Lens: {% if s[4] == -1 %}
-    Concave
-    {% elif s[4] == 1 %}
-    Convex
-    {% else %}
-    None
-    {% endif %}
+<div class="row">
+  {% for s in sessions %}
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+	<h4 class="card-header">Session {{s[0]}}</h4>
+	<p class="card-text">
+	  Focus: {{s[1]}}
+	  <br>
+	  Object Height: {{s[2]}}
+	  <br>
+      Object Distance: {{s[3]}}
+	  <br>
+	  Lens: {% if s[4] == -1 %}
+	  Concave
+	  {% elif s[4] == 1 %}
+	  Convex
+	  {% else %}
+	  None
+	  {% endif %}
+	</p>
+	<a href="diagram?h={{s[0]}}" class="btn btn-primary">View session</a>
+	<br><br>
+      </div>
+    </div>
   </div>
-</a>
-<br>
-{% endfor %}
+  {% endfor %}
+</div>
 
 <div class="modal-body row bot">
   <div class="col-md-4"></div>
