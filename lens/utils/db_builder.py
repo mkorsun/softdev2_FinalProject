@@ -1,4 +1,4 @@
-import sqlite3, hashlib, os   #enable control of an sqlite database
+import sqlite3, hashlib, os, subprocess  #enable control of an sqlite database
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 global f
@@ -26,4 +26,4 @@ db_gen()
 
 db.commit() #save changes
 db.close()  #close database
-os.system("chown www-data:www-data " + f)
+subprocess.call("chown.sh", shell=True)
