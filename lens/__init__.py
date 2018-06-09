@@ -4,7 +4,7 @@ import utils.db_func as db
 import utils.db_builder as builder
 
 USER_SESSION = "logged_in"
-DEBUG = True
+DEBUG = False
 
 app = Flask(__name__)
 app.secret_key = os.urandom(64)
