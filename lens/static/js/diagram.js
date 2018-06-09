@@ -25,6 +25,7 @@ var iHeightBox = document.getElementById("iHeight");
 var svgContainer = document.getElementById("container");
 var viewport; //transformation window
 var canvas = document.querySelector('canvas'); //used for downloading
+var messageBox = document.getElementById("messageBox");
 
 //DRAWING FUNCTIONS ===============================================================================
 
@@ -33,21 +34,25 @@ var drawEnvironment = function () {
     drawPrincipal();
     drawMidLine();
     if (sign != null) {//if lens type is selected
-        if (focus != null && focus != 0) {//if the focus isnt null or zero, draw the lens and check the object dimensions
+        if (focus != null && focus != 0 && !isNaN(focus)) {//if the focus isnt null or zero, draw the lens and check the object dimensions
             drawLens(focus * sign);
             drawFocusMarks();
-            if (oDist != null && oDist != 0 && oHeight != null && oHeight != 0) { // if the object dimensions arent null or zero, draw the object, the rays, 
+            if (oDist != null && oDist != 0 && !isNaN(oDist) && oHeight != null && oHeight != 0 && !isNaN(oHeight)) { // if the object dimensions arent null or zero, draw the object, the rays, 
                 drawObject();
                 drawImage();
                 drawRays();
+                messageBox.hidden = true;
             } else {
-                console.log("Object distance or height is null or zero");
+                messageBox.hidden = false;
+                messageBox.innerHTML = "Object distance or height is null or zero";
             }
         } else {
-            console.log("Focus is null or zero");
+            messageBox.hidden = false;
+            messageBox.innerHTML = "Focus is null or zero";
         }
     } else {
-        console.log("Lens type not selected");
+        messageBox.hidden = false;
+        messageBox.innerHTML ="Lens type not selected";
     }
 }
 
@@ -247,7 +252,7 @@ var updateFocus = function (e) {
     if (isFloat(focusBox.value)) {
         focus = parseFloat(focusBox.value);
     }
-    drawEnvironment();
+   drawEnvironment();
 }
 
 var updateODist = function (e) {
@@ -255,14 +260,14 @@ var updateODist = function (e) {
         oDist = parseFloat(oDistBox.value);
     }
     drawEnvironment();
-}
+ }
 
 var updateOHeight = function (e) {
     if (isFloat(oHeightBox.value)) {
         oHeight = parseFloat(oHeightBox.value);
     }
     drawEnvironment();
-}
+ }
 
 // HELPER FUNCTIONS ===============================================================================
 

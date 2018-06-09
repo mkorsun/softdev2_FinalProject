@@ -30,7 +30,6 @@ def diagram():
     h = None
     if("h" in request.args):
         h = db.get_session(request.args["h"])
-        print h
     return render_template('diagram.html', logged = is_logged(), h = h)
 
 @app.route('/profile')
@@ -90,10 +89,10 @@ def save():
         db.create_session(username, oDist, oHeight, focus, sign)
         return "Session created"
     elif( db.check_hash(username, hashcode) ):
-        print "checking user"
+        print "Checking user"
         db.update_session(hashcode, oDist, oHeight, focus, sign)
         return "Session updated"
-    return "Something broke"
+    return "Error: You are unable to save because you are not the owner"
 
 if __name__ == '__main__':
     app.debug = DEBUG

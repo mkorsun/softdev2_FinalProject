@@ -1,3 +1,5 @@
+var messageBox = document.getElementById("messageBox");
+
 var getData = function(e){
     var formData = new FormData();
     formData.append('username', username);
@@ -13,7 +15,8 @@ var save = function(e){
     var req = new XMLHttpRequest();
     req.onreadystatechange = function(){
 	if(this.readyState == 4 && this.status == 200){
-	    console.log(this.responseText);
+        messageBox.hidden = false;
+	    messageBox.innerHTML = this.responseText;
 	}
     };
     var formData = getData(e);

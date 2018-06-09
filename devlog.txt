@@ -53,3 +53,6 @@ css fixes
 ConnieL -- 2018-06-08 14:45:53
 updated DESIGN doc
 
+JamesS -- 2018-06-09 00:25:14
+debugging and added error messages to diagram
+

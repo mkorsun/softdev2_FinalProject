@@ -57,6 +57,13 @@ i, span {
   display: inline-block;
 }
 
+.messages{
+  padding-top: 10px;
+  padding-bottom: 10px;
+ background: #7386D5;
+ font-weight: bold;
+}
+
 /* ---------------------------------------------------
     LOGIN
 ----------------------------------------------------- */

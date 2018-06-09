@@ -35,7 +35,9 @@
                         <label for="iHeight">Image Height</label>
                         <input name="iHeight" type="text" class="form-control" id="iHeight" readonly="readonly" placeholder="null">
                   </div>
+                  {% if logged %}
                   <button class="btn" id="save">Save Diagram</button>
+                  {% endif %}
                   <br>
                   <br>
                   <button class="btn" id="download">Download Diagram</button>
@@ -57,6 +59,12 @@
       <svg xmlns="http://www.w3.org/2000/svg" id="svg_id" viewBox="0 0 1280 500" height=500 width=100%></svg>
 </div>
 <canvas id="canvas" hidden></canvas>
+<br>
+<br>
+<center>
+<div class="messages" id="messageBox">
+</div>
+</center>
 {% endblock %}
 
 {% block customscript %}
