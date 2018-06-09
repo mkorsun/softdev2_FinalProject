@@ -3,9 +3,6 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 import utils.db_func as db
 import utils.db_builder as builder
 
-os.system("chown www-data:www-data data/")
-os.system("chown www-data:www-data data/lens.db")
-
 USER_SESSION = "logged_in"
 DEBUG = False
 

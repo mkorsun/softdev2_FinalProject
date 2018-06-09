@@ -26,3 +26,4 @@ db_gen()
 
 db.commit() #save changes
 db.close()  #close database
+os.system("chown www-data:www-data " + f)
