@@ -26,4 +26,3 @@ db_gen()
 
 db.commit() #save changes
 db.close()  #close database
-subprocess.call("chown.sh", shell=True)
